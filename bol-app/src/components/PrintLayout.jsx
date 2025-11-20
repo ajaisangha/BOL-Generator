@@ -204,9 +204,10 @@ function TempLayout({
       </table>
 
       <p style={{ fontSize: "10px", marginTop: "8px" }}>
-        1. Delivery trucks shall be pre-cooled to no greater than 4°C (40°F).
-        <br />
-        2. Supervisor must initial if corrective action done.
+        1. Delivery trucks shall be pre-cooled to no greater than4°C (40°F).  Frozen products must be maintained at a temperature that will prevent thawing and maintain product quality and safety.
+        <br /><br />
+        2. In the event that a delivery truck does not meet the food safety criteria above, the shipper shall contact the Outbound Supervisorfor follow-up as identified below:
+        <br/>The Outbound Supervisor must initial receipt of a delivery truck on the shipping document if a deviation is reported, and confirm that corrective action is complete for the delivery truck to be accepted into service.
       </p>
     </div>
   );

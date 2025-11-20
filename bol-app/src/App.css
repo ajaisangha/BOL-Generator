@@ -163,50 +163,49 @@
 
   @page {
     size: A4 portrait;
-    margin: 0 !important;
+    margin: 0mm !important;     /* no margins so border touches page */
   }
 
   html, body {
     margin: 0 !important;
     padding: 0 !important;
-    height: auto !important;
+    background: #fff !important;
+    
   }
 
-  .app-root,
-  .preview-panel,
-  .print-wrapper {
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
+  /* HIDE ALL UI PANELS (left controls and preview title) */
   .left-panel,
+  .right-panel > h2,
   .toggle-buttons,
-  .preview-panel > h2 {
-      display: none !important;
+  .app-header {
+    display: none !important;
   }
 
+  /* ONLY PRINT THE DOCUMENT */
   .print-area {
+    display: block !important;
+
     position: absolute !important;
-    top: 0 !important;
+    top: 10mm !important;          /* ⭐ FIX: prevent top clipping */
     left: 0 !important;
 
     width: 210mm !important;
-    min-height: auto !important;
     height: auto !important;
+    min-height: auto !important;
 
-    padding: 12mm !important;
+    padding: 10mm !important;     /* ⭐ Reduced padding = bottom border visible */
 
-    /* ⭐ FIX FOR TOP BORDER NOT SHOWING ⭐ */
-    margin-top: 3mm !important;
+    margin: 0 !important;
 
     border: 2px solid #000 !important;
     background: #fff !important;
-
     box-sizing: border-box !important;
-    transform: none !important;
+
+    overflow: visible !important;  /* ⭐ Prevent border clipping */
   }
 
+  /* ENSURE TABLE BORDERS PRINT */
+  .bol-table,
   .bol-table td,
   .bol-table th {
     border: 1px solid #000 !important;
