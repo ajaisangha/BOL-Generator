@@ -1,7 +1,7 @@
 import React from "react";
 
 /* ----------------------------------------------------------
-   BOL TEMPLATE — matches Excel-style layout
+   BOL TEMPLATE — Excel-style layout
 ---------------------------------------------------------- */
 function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
   const today = new Date();
@@ -10,27 +10,19 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
   const isOttawa = mode === "ottawa";
 
   const shipToText = isOttawa
-    ? [
-        "Ottawa Spoke",
-        "2445 Don Reid Dr",
-        "Ottawa, ON K1H 1E2",
-      ]
-    : [
-        "Etobicoke Spoke",
-        "1561 The Queensway",
-        "Etobicoke, ON M8Z 1T8",
-      ];
+    ? ["Ottawa Spoke", "2445 Don Reid Dr", "Ottawa, ON K1H 1E2"]
+    : ["Etobicoke Spoke", "1561 The Queensway", "Etobicoke, ON M8Z 1T8"];
 
-  // Business rules from user
-  const frames = Number(qty || 0);                 // frames = Qty entered
-  const packages = frames * 20;                    // package qty = frames * 20
-  const weight = frames + packages;                // weight = frames + package qty
+  // Business rules:
+  const frames = Number(qty || 0); // frames = Qty entered
+  const packages = frames * 20; // package QTY = frames * 20
+  const weight = frames + packages; // weight = frames + packageQty
 
   const carrierName = isOttawa ? "Canada Cartage" : "Sobeys Inc.";
 
   return (
     <div className="print-area bol-page page">
-      {/* TOP HEADER / ADDRESS / CARRIER BLOCK */}
+      {/* ==================== HEADER / ADDRESS BLOCK ==================== */}
       <table className="bol-table" style={{ fontSize: "11px" }}>
         <tbody>
           {/* Row 1: Title + Date */}
@@ -65,21 +57,22 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             </td>
           </tr>
 
-          {/* Row 3: SID / Carrier Name */}
+          {/* Row 3: SID# ... FOB checkbox */}
           <tr>
-            <td className="label-cell">SID#:</td>
-            <td colSpan={3}></td>
-            <td colSpan={2} style={{ textAlign: "center" }}>
-              FOB
+            <td colSpan={8}>
+              <span className="label-cell">SID#:</span>{" "}
+              ____________________________
             </td>
-            <td colSpan={2}></td>
-            <td colSpan={2} className="label-cell">
-              Carrier Name:
+            <td colSpan={4} style={{ textAlign: "right" }}>
+              FOB{" "}
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />
             </td>
-            <td colSpan={2}>{carrierName}</td>
           </tr>
 
-          {/* Row 4: Ship To / Trailer # */}
+          {/* Row 4: Ship To / Trailer No */}
           <tr>
             <td className="label-cell">Ship To:</td>
             <td colSpan={7}>
@@ -95,79 +88,106 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             </td>
           </tr>
 
-          {/* Row 5: CID / Seal */}
+          {/* Row 5: CID# ... FOB checkbox */}
           <tr>
-            <td className="label-cell">CID#:</td>
-            <td colSpan={3}></td>
-            <td colSpan={2} style={{ textAlign: "center" }}>
-              FOB
+            <td colSpan={8}>
+              <span className="label-cell">CID#:</span>{" "}
+              ____________________________
             </td>
-            <td colSpan={2}></td>
+            <td colSpan={4} style={{ textAlign: "right" }}>
+              FOB{" "}
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />
+            </td>
+          </tr>
+
+          {/* Row 6: Carrier, Seal, SCAC, Pro No (simplified to match screenshot section you care about) */}
+          <tr>
+            <td colSpan={2} className="label-cell">
+              Carrier Name:
+            </td>
+            <td colSpan={4}>{carrierName}</td>
             <td colSpan={2} className="label-cell">
               Seal Number(s):
             </td>
             <td colSpan={2} style={{ backgroundColor: "#ffff99" }}>
               {sealNumber}
             </td>
+            <td className="label-cell">SCAC:</td>
+            <td> CACG </td>
           </tr>
         </tbody>
       </table>
 
-      {/* FREIGHT TERMS + SPECIAL INSTRUCTIONS + (MILEAGE) */}
-      <table className="bol-table" style={{ fontSize: "10px" }}>
+      {/* ==================== FREIGHT TERMS / SPECIAL INSTRUCTIONS ==================== */}
+      <table className="bol-table" style={{ fontSize: "10px", marginTop: "2px" }}>
         <tbody>
+          {/* Row 1: Freight header + Special Instructions header + Master BOL */}
           <tr>
-            {/* Freight charge terms */}
-            <td className="label-cell" style={{ width: "40%" }}>
+            <td className="label-cell" colSpan={4}>
               Freight Charge Terms (prepaid unless marked otherwise):
             </td>
-            <td style={{ width: "10%" }}>
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-              Prepaid
-            </td>
-            <td style={{ width: "10%" }}>
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-              Collect
-            </td>
-            <td style={{ width: "10%" }}>
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> 3rd
-              Party
-            </td>
-
-            {/* Special instructions header */}
-            <td className="label-cell" style={{ width: "10%" }}>
+            <td className="label-cell" colSpan={2}>
               Special Instructions:
             </td>
-            <td style={{ width: "20%", textAlign: "right" }}>
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+            <td colSpan={2} style={{ textAlign: "right" }}>
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+                defaultChecked
+              />{" "}
               Master BOL
             </td>
           </tr>
 
-          {/* Mileage block (Ottawa only) */}
-          {isOttawa && (
-            <>
-              <tr>
-                <td colSpan={4}></td>
-                <td colSpan={2}>
-                  Voila CFC1 Departure Time :
-                  <br />
-                  Mileage Start :
-                  <br />
-                  Ottawa Spoke Arrival Time :
-                  <br />
-                  Mileage End :
-                  <br />
-                  Total Mileage :
-                </td>
-              </tr>
-            </>
-          )}
+          {/* Row 2: Freight checkboxes under Freight header */}
+          <tr>
+            <td colSpan={4}>
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+                defaultChecked
+              />{" "}
+              Prepaid&nbsp;&nbsp;&nbsp;
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />{" "}
+              Collect&nbsp;&nbsp;&nbsp;
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />{" "}
+              3rd Party
+            </td>
+
+            {/* Ottawa-only mileage block, removed for Etobicoke */}
+            {isOttawa ? (
+              <td colSpan={4}>
+                Voila CFC1 Departure Time :
+                <br />
+                Mileage Start :
+                <br />
+                Ottawa Spoke Arrival Time :
+                <br />
+                Mileage End :
+                <br />
+                Total Mileage :
+              </td>
+            ) : (
+              <td colSpan={4}></td>
+            )}
+          </tr>
         </tbody>
       </table>
 
-      {/* COMMODITY / HANDLING TABLE */}
-      <table className="bol-table" style={{ fontSize: "10px", marginTop: "4px" }}>
+      {/* ==================== COMMODITY / HANDLING TABLE ==================== */}
+      <table
+        className="bol-table"
+        style={{ fontSize: "10px", marginTop: "4px" }}
+      >
         <thead>
           <tr>
             <th rowSpan={2} style={{ width: "6%" }}>
@@ -191,24 +211,26 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               Type
             </th>
             <th rowSpan={2} style={{ width: "8%" }}>
-              Wt. U.N. (lbs)
+              Wt. U.N.
+              <br />
+              (lbs)
             </th>
             <th rowSpan={2} style={{ width: "5%" }}>
               H.M.
             </th>
-            <th style={{ width: "45%" }}>
+            <th rowSpan={2} style={{ width: "35%" }}>
               Commodity Description
             </th>
-            <th rowSpan={2} style={{ width: "8%" }}>
+            <th colSpan={2} style={{ width: "16%" }}>
               LTL Only
-              <br />
-              NMFC No
-              <br />
-              Class
             </th>
           </tr>
           <tr>
-            <th>
+            <th style={{ width: "8%" }}>NMFC No.</th>
+            <th style={{ width: "8%" }}>Class</th>
+          </tr>
+          <tr>
+            <th colSpan={9} style={{ fontWeight: "normal", fontSize: "9px" }}>
               Commodities requiring special or additional care or attention in
               handling or stowing must be so marked and packaged as to ensure
               safe transportation with ordinary care.
@@ -224,27 +246,16 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             <td className="center">Frames</td>
             <td className="center">{frames ? packages : ""}</td>
             <td className="center">Totes</td>
-            <td className="center">{frames || packages ? weight : ""}</td>
+            <td className="center">
+              {frames || packages ? weight : ""}
+            </td>
             <td></td>
             <td>Mixed grocery</td>
             <td></td>
+            <td></td>
           </tr>
 
-          {/* A few blank rows to visually match grid */}
-          {[...Array(5)].map((_, idx) => (
-            <tr key={idx}>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-          ))}
-
-          {/* Totals row */}
+          {/* Totals row only (no extra blank rows) */}
           <tr>
             <td className="center" style={{ backgroundColor: "#ffff99" }}>
               {frames || ""}
@@ -252,16 +263,22 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             <td className="center">Frames</td>
             <td className="center">{frames ? packages : ""}</td>
             <td className="center">Totes</td>
-            <td className="center">{frames || packages ? weight : ""}</td>
+            <td className="center">
+              {frames || packages ? weight : ""}
+            </td>
             <td></td>
             <td>Totals</td>
+            <td></td>
             <td></td>
           </tr>
         </tbody>
       </table>
 
-      {/* DECLARED VALUE / SHIPPER SIGNATURE SECTION */}
-      <table className="bol-table" style={{ fontSize: "9px", marginTop: "4px" }}>
+      {/* ==================== DECLARED VALUE / SHIPPER SIGNATURE (TOP) ==================== */}
+      <table
+        className="bol-table"
+        style={{ fontSize: "9px", marginTop: "4px" }}
+      >
         <tbody>
           <tr>
             <td style={{ width: "50%", verticalAlign: "top" }}>
@@ -274,9 +291,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               stated by the shipper to be not exceeding
               <br />
               <br />
-              _____________________________
-              <br />
-              FOB _________________________
+              _____________________________&nbsp;&nbsp;FOB&nbsp;_________________________
             </td>
             <td style={{ width: "50%", verticalAlign: "top" }}>
               The carrier shall not make delivery of this shipment without
@@ -291,37 +306,45 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
         </tbody>
       </table>
 
-      {/* LIABILITY NOTICE */}
-      <table className="bol-table" style={{ fontSize: "8px", marginTop: "4px" }}>
+      {/* ==================== LIABILITY NOTICE ==================== */}
+      <table
+        className="bol-table"
+        style={{ fontSize: "8px", marginTop: "4px" }}
+      >
         <tbody>
           <tr>
             <td>
-              <strong>NOTE:</strong> Liability limitation for loss or damage in
-              this shipment may be applicable. See 49 U.S.C. §14706(c)(1)(A)
-              and (B). RECEIVED, subject to individually determined rates or
-              contracts that have been agreed upon in writing between the
-              carrier and shipper, if applicable, otherwise to the rates,
-              classifications and rules that have been established by the
-              carrier and are available to the shipper on request. The property
-              described above, in apparent good order, except as noted
-              (contents and condition of contents of packages unknown), marked,
-              consigned, and destined as shown above, which said carrier agrees
-              to carry to destination, if on its route, or otherwise to deliver
-              to another carrier on the route to destination. Every service to
-              be performed hereunder shall be subject to all of the bill of
-              lading terms and conditions in the governing classification on
-              the date of shipment. Shipper hereby certifies that he is
-              familiar with all the bill of lading terms and conditions in the
-              governing classification and the said terms and conditions are
-              hereby agreed to by the shipper and accepted for himself and his
-              assigns.
+              <strong>
+                NOTE: Liability limitation for loss or damage in this shipment
+                may be applicable. See 49 U.S.C. §14706(c)(1)(A) and (B).
+              </strong>
+              <br />
+              RECEIVED, subject to individually determined rates or contracts
+              that have been agreed upon in writing between the carrier and
+              shipper, if applicable, otherwise to the rates, classifications
+              and rules that have been established by the carrier and are
+              available to the shipper on request. The property described above,
+              in apparent good order, except as noted (contents and condition of
+              contents of packages unknown), marked, consigned, and destined as
+              shown above, which said carrier agrees to carry to destination, if
+              on its route, or otherwise to deliver to another carrier on the
+              route to destination. Every service to be performed hereunder
+              shall be subject to all of the bill of lading terms and
+              conditions in the governing classification on the date of
+              shipment. Shipper hereby certifies that he is familiar with all
+              the bill of lading terms and conditions in the governing
+              classification and the said terms and conditions are hereby agreed
+              to by the shipper and accepted for himself and his assigns.
             </td>
           </tr>
         </tbody>
       </table>
 
-      {/* TRAILER LOADED / FREIGHT COUNTED / SIGNATURES */}
-      <table className="bol-table" style={{ fontSize: "9px", marginTop: "4px" }}>
+      {/* ==================== TRAILER LOADED / FREIGHT COUNTED / CERTIFICATION ==================== */}
+      <table
+        className="bol-table"
+        style={{ fontSize: "9px", marginTop: "4px" }}
+      >
         <tbody>
           <tr>
             <td style={{ width: "35%", verticalAlign: "top" }}>
@@ -330,28 +353,44 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               condition for transportation according to the applicable
               regulations of the DOT.
             </td>
-            <td style={{ width: "25%", verticalAlign: "top" }}>
+            <td style={{ width: "20%", verticalAlign: "top" }}>
               <strong>Trailer Loaded</strong>
               <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Shipper
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+                defaultChecked
+              />{" "}
+              By Shipper
               <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Driver
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />{" "}
+              By Driver
             </td>
-            <td style={{ width: "25%", verticalAlign: "top" }}>
+            <td style={{ width: "20%", verticalAlign: "top" }}>
               <strong>Freight Counted</strong>
               <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Shipper
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />{" "}
+              By Shipper
               <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Driver / pallet said to contain
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />{" "}
+              By Driver / pallet said to contain
               <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Driver / pieces
+              <input
+                type="checkbox"
+                style={{ transform: "scale(0.8)" }}
+              />{" "}
+              By Driver / pieces
             </td>
-            <td style={{ width: "15%", verticalAlign: "top" }}>
+            <td style={{ width: "25%", verticalAlign: "top" }}>
               Carrier acknowledges receipt of packages and required placards.
               Carrier certifies emergency response information was made
               available and/or carrier has the DOT emergency response guidebook
@@ -362,22 +401,24 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
         </tbody>
       </table>
 
-      {/* BOTTOM SIGNATURE LINE */}
-      <table className="bol-table" style={{ fontSize: "9px", marginTop: "4px" }}>
+      {/* ==================== FINAL SIGNATURES ==================== */}
+      <table
+        className="bol-table"
+        style={{ fontSize: "9px", marginTop: "4px" }}
+      >
         <tbody>
           <tr>
-            <td style={{ width: "40%" }}>
+            <td style={{ width: "50%" }}>
               ______________________________________
               <br />
-              Shipper Signature
+              Shipper Signature &nbsp;&nbsp;&nbsp; Date: {dateStr}
             </td>
-            <td style={{ width: "20%" }}>
-              Date: {dateStr}
-            </td>
-            <td style={{ width: "40%" }}>
+            <td style={{ width: "50%" }}>
               ______________________________________
               <br />
-              Carrier Signature / Pickup Date
+              Carrier Signature
+              <br />
+              Pickup Date: ___________________
             </td>
           </tr>
         </tbody>
@@ -387,7 +428,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
 }
 
 /* ----------------------------------------------------------
-   TEMP CHECK TEMPLATE (same logic as before)
+   TEMP CHECK TEMPLATE (unchanged except for earlier logic)
 ---------------------------------------------------------- */
 function TempLayout({
   trailerNumber,
@@ -565,7 +606,7 @@ function TempLayout({
 }
 
 /* ----------------------------------------------------------
-   EXPORT — chooses between BOL and TEMP
+   EXPORT — decides which page to show
 ---------------------------------------------------------- */
 export default function PrintLayout({
   activePreview,
