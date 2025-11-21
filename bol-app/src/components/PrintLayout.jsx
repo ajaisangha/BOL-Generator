@@ -658,26 +658,54 @@ export default function PrintLayout({
 }) {
   return (
     <div className="print-wrapper">
+
+      {/* ===================== BOL — NO BORDER ===================== */}
       {activePreview === "BOL" && (
-        <BOLLayout
-          mode={bolTemplateType}
-          trailerNumber={trailerNumber}
-          sealNumber={sealNumber}
-          qty={qty}
-          bolNumber={bolNumber}
-        />
+        <div
+          className="bol-print-area"   // <-- NEW CLASS WITH NO BORDER
+          style={{
+            width: "210mm",
+            minHeight: "297mm",
+            margin: "0 auto",
+            padding: "10mm 12mm 12mm 12mm",
+            boxSizing: "border-box",
+          }}
+        >
+          <BOLLayout
+            mode={bolTemplateType}
+            trailerNumber={trailerNumber}
+            sealNumber={sealNumber}
+            qty={qty}
+            bolNumber={bolNumber}
+          />
+        </div>
       )}
 
+      {/* ===================== TEMP CHECK — BORDER + EXTRA TOP LINE ===================== */}
       {activePreview === "TEMP" && (
-        <TempLayout
-          trailerNumber={trailerNumber}
-          supervisorName={supervisorName}
-          initials={initials}
-          checks={checks}
-          issueTexts={issueTexts}
-          temperature={temperature}
-        />
+        <div
+          className="temp-print-area"
+          style={{
+            width: "210mm",
+            minHeight: "297mm",
+            margin: "0 auto",
+            boxSizing: "border-box",
+            padding: "12mm",
+            border: "2px solid #000",
+            borderTop: "4px solid #000",   // <-- EXTRA TOP LINE
+          }}
+        >
+          <TempLayout
+            trailerNumber={trailerNumber}
+            supervisorName={supervisorName}
+            initials={initials}
+            checks={checks}
+            issueTexts={issueTexts}
+            temperature={temperature}
+          />
+        </div>
       )}
+
     </div>
   );
 }

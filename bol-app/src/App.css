@@ -1,9 +1,6 @@
 /* ---------------------------------------------------------
    GLOBAL APP LAYOUT (SCREEN)
 --------------------------------------------------------- */
-/* ------------------------------
-   NEW CLEAN UI LAYOUT
-------------------------------- */
 
 .app-container {
   width: 100%;
@@ -43,7 +40,6 @@
   padding: 12px;
   background: #ffffff;
 }
-
 
 /* ---------------------------------------------------------
    FORM ELEMENTS
@@ -113,28 +109,34 @@
   gap: 4px;
 }
 
-
 /* ---------------------------------------------------------
-   PRINT PREVIEW BOX
+   PRINT PREVIEW PANELS
 --------------------------------------------------------- */
-.print-wrapper {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
 
-.print-area {
-  width: 210mm;             /* A4 width */
-  min-height: 297mm;        /* A4 height */
-  background: white;
+/* BOL — NO BORDER */
+.bol-print-area {
+  width: 210mm;
+  min-height: 297mm;
   padding: 12mm;
   margin: 0 auto;
-  border: 2px solid #000;   /* BORDER SHOWS IN PRINT */
+  background: white;
   box-sizing: border-box;
-  position: relative;
+  border: none !important;
 }
 
-/* BOL + TEMP TABLES */
+/* TEMP CHECK — BORDER + EXTRA TOP LINE */
+.temp-print-area {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 12mm;
+  box-sizing: border-box;
+  border: 2px solid #000 !important;
+  border-top: 4px solid #000 !important; /* EXTRA THICK TOP LINE */
+  background: white;
+}
+
+/* TABLES */
 .bol-table {
   width: 100%;
   border-collapse: collapse;
@@ -143,7 +145,7 @@
 
 .bol-table td,
 .bol-table th {
-  border: 1px solid #000 !important;   /* FORCE PRINT BORDER */
+  border: 1px solid #000 !important;
   padding: 4px;
   font-size: 12px;
 }
@@ -157,23 +159,22 @@
 }
 
 /* ---------------------------------------------------------
-   PRINT MODE FIXES
+   PRINT MODE
 --------------------------------------------------------- */
 @media print {
 
   @page {
     size: A4 portrait;
-    margin: 0mm !important;     /* no margins so border touches page */
+    margin: 0 !important;
   }
 
   html, body {
     margin: 0 !important;
     padding: 0 !important;
     background: #fff !important;
-    
   }
 
-  /* HIDE ALL UI PANELS (left controls and preview title) */
+  /* Hide all UI */
   .left-panel,
   .right-panel > h2,
   .toggle-buttons,
@@ -181,31 +182,45 @@
     display: none !important;
   }
 
-  /* ONLY PRINT THE DOCUMENT */
-  .print-area {
-    display: block !important;
-
+  /* Printing BOL — NO BORDER */
+  .bol-print-area {
     position: absolute !important;
-    top: 10mm !important;          /* ⭐ FIX: prevent top clipping */
+    top: 5mm !important;     /* SAFE PRINT MARGIN */
     left: 0 !important;
 
     width: 210mm !important;
-    height: auto !important;
     min-height: auto !important;
+    height: auto !important;
 
-    padding: 10mm !important;     /* ⭐ Reduced padding = bottom border visible */
+    padding: 12mm !important;
+    border: none !important;
 
     margin: 0 !important;
-
-    border: 2px solid #000 !important;
-    background: #fff !important;
     box-sizing: border-box !important;
-
-    overflow: visible !important;  /* ⭐ Prevent border clipping */
+    background: #fff !important;
   }
 
-  /* ENSURE TABLE BORDERS PRINT */
-  .bol-table,
+  /* Printing TEMP CHECK — WITH BORDER */
+  .temp-print-area {
+    position: absolute !important;
+    top: 5mm !important;     /* SAFE PRINT MARGIN */
+    left: 0 !important;
+
+    width: 210mm !important;
+    min-height: auto !important;
+    height: auto !important;
+
+    padding: 12mm !important;
+
+    border: 2px solid #000 !important;
+    border-top: 4px solid #000 !important;
+
+    margin: 0 !important;
+    background: white !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure borders always print */
   .bol-table td,
   .bol-table th {
     border: 1px solid #000 !important;
