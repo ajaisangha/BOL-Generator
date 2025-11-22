@@ -48,7 +48,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
 
           {/* Row 2: Ship From + BOL No */}
           <tr>
-            <td className="label-cell" style={{ width: "15mm" }}>
+            <td className="label-cell" style={{ width: "40mm" }}>
               Ship From:
             </td>
             <td colSpan={7} style={{ width: "90mm" }}>
@@ -61,7 +61,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             <td colSpan={2} className="label-cell" style={{ width: "30mm" }}>
               Bill of Lading No:
             </td>
-            <td colSpan={2} style={{ backgroundColor: "#ffff99" }}>
+            <td colSpan={2} style={{ backgroundColor: "#ffff99", width: "70mm" }}>
               {bolNumber}
             </td>
           </tr>
@@ -76,10 +76,8 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
                   alignItems: "center",
                 }}
               >
-                <span className="label-cell">SID#</span>
-                <span style={{ flex: 1 }} />
-                <span>
-                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+                <span className="label-cell">SID#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
                   FOB
                 </span>
               </div>
@@ -88,12 +86,16 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
 
           {/* Row 4: Ship To + Trailer No */}
           <tr>
-            <td className="label-cell">Ship To:</td>
-            <td colSpan={7}>
-              {shipToLines.map((line, idx) => (
+            <td colSpan={7}>Ship To: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              Location No:{shipToLines.map((line, idx) => (
                 <div key={idx}>{line}</div>
               ))}
+              <span className="label-cell">CID#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+                  FOB
+                </span>
             </td>
+           
             <td colSpan={2} className="label-cell">
               Trailer No:
             </td>
@@ -101,27 +103,6 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               {trailerNumber}
             </td>
           </tr>
-
-          {/* Row 5: CID# (blank) + checkbox + FOB */}
-          <tr>
-            <td colSpan={12}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <span className="label-cell">CID#</span>
-                <span style={{ flex: 1 }} />
-                <span>
-                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-                  FOB
-                </span>
-              </div>
-            </td>
-          </tr>
-
           {/* Row 6: Carrier / Trailer / Seal */}
           <tr>
             <td colSpan={2} className="label-cell">

@@ -153,10 +153,6 @@
   font-size: 12px;
 }
 
-.label-cell {
-  font-weight: bold;
-}
-
 .center {
   text-align: center;
 }
@@ -208,7 +204,7 @@
     page-break-after: avoid !important;
     overflow: hidden !important;
   }
-  
+
 /* =====================================================
    BOL — FORCE FIT TO ONE A4 PAGE (Excel-style)
 ===================================================== */
