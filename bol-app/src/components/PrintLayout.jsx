@@ -14,15 +14,21 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
     : ["Etobicoke Spoke", "1561 The Queensway", "Etobicoke, ON M8Z 1T8"];
 
   // Business rules
-  const frames = Number(qty || 0); // Handling unit qty
-  const packages = frames * 20; // Package qty
-  const weight = frames + packages; // Weight
+  const frames = Number(qty || 0);     // Handling unit qty
+  const packages = frames * 20;        // Package qty
+  const weight = frames + packages;    // Weight
 
   const carrierName = isOttawa ? "Canada Cartage" : "Sobeys Inc.";
 
+  const commodityNotice =
+    "Commodities requiring special or additional care or attention in handling or stowing must be so marked and packaged as to ensure safe transportation with ordinary care. See Section 2(e) of MNMFC Item 360.";
+
   return (
-    <div className="print-area bol-page page" style={{ fontFamily: '"Arial Narrow", Arial, sans-serif' }}>
-      {/* ========== HEADER / ADDRESS BLOCK (12-column grid) ========== */}
+    <div
+      className="bol-page page"
+      style={{ fontFamily: '"Arial Narrow", Arial, sans-serif' }}
+    >
+      {/* ========== HEADER / ADDRESS BLOCK ========== */}
       <table
         className="bol-table"
         style={{ fontSize: "10px", width: "190mm", margin: "0 auto" }}
@@ -60,7 +66,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             </td>
           </tr>
 
-          {/* Row 3: SID# and FOB in same cell */}
+          {/* Row 3: SID# (blank) + checkbox + FOB */}
           <tr>
             <td colSpan={12}>
               <div
@@ -70,14 +76,10 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
                   alignItems: "center",
                 }}
               >
-                <span className="label-cell">
-                  SID#: ________________________________
-                </span>
+                <span className="label-cell">SID#</span>
+                <span style={{ flex: 1 }} />
                 <span>
-                  <input
-                    type="checkbox"
-                    style={{ transform: "scale(0.8)" }}
-                  />{" "}
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
                   FOB
                 </span>
               </div>
@@ -100,7 +102,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             </td>
           </tr>
 
-          {/* Row 5: CID# and FOB in same cell */}
+          {/* Row 5: CID# (blank) + checkbox + FOB */}
           <tr>
             <td colSpan={12}>
               <div
@@ -110,21 +112,17 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
                   alignItems: "center",
                 }}
               >
-                <span className="label-cell">
-                  CID#: ________________________________
-                </span>
+                <span className="label-cell">CID#</span>
+                <span style={{ flex: 1 }} />
                 <span>
-                  <input
-                    type="checkbox"
-                    style={{ transform: "scale(0.8)" }}
-                  />{" "}
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
                   FOB
                 </span>
               </div>
             </td>
           </tr>
 
-          {/* Row 6: Carrier / Seal / SCAC / Pro (simplified) */}
+          {/* Row 6: Carrier / Trailer / Seal */}
           <tr>
             <td colSpan={2} className="label-cell">
               Carrier Name:
@@ -139,6 +137,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               {sealNumber}
             </td>
           </tr>
+
           <tr>
             <td colSpan={2} className="label-cell">
               SCAC:
@@ -178,6 +177,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               Master BOL
             </td>
           </tr>
+
           <tr>
             <td colSpan={4}>
               <input
@@ -186,17 +186,12 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
                 style={{ transform: "scale(0.8)" }}
               />{" "}
               Prepaid&nbsp;&nbsp;&nbsp;
-              <input
-                type="checkbox"
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
+              <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
               Collect&nbsp;&nbsp;&nbsp;
-              <input
-                type="checkbox"
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              3rd Party
+              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> 3rd
+              Party
             </td>
+
             {isOttawa ? (
               <td colSpan={8}>
                 Voila CFC1 Departure Time :
@@ -216,7 +211,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
         </tbody>
       </table>
 
-      {/* ========== COMMODITY TABLE (2-row header) ========== */}
+      {/* ========== COMMODITY TABLE (notice in Commodity Description sub-header row) ========== */}
       <table
         className="bol-table"
         style={{
@@ -226,6 +221,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
         }}
       >
         <thead>
+          {/* Group headers */}
           <tr>
             <th colSpan={2}>Handling Unit</th>
             <th colSpan={2}>Package</th>
@@ -242,6 +238,8 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             </th>
             <th colSpan={2}>LTL Only</th>
           </tr>
+
+          {/* Sub headers */}
           <tr>
             <th style={{ width: "10mm" }}>QTY</th>
             <th style={{ width: "15mm" }}>Type</th>
@@ -250,15 +248,24 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             <th style={{ width: "15mm" }}>NMFC No.</th>
             <th style={{ width: "15mm" }}>Class</th>
           </tr>
+
+          {/* Notice row ONLY under Commodity Description col */}
           <tr>
-            <th colSpan={9} style={{ fontWeight: "normal" }}>
-              Commodities requiring special or additional care or attention in
-              handling or stowing must be so marked and packaged as to ensure
-              safe transportation with ordinary care. See Section 2(e) of MNMFC
-              Item 360.
+            <th colSpan={6} style={{ border: "none" }}></th>
+            <th
+              style={{
+                fontWeight: "normal",
+                fontSize: "8px",
+                lineHeight: "1.1",
+                verticalAlign: "top",
+              }}
+            >
+              {commodityNotice}
             </th>
+            <th colSpan={2} style={{ border: "none" }}></th>
           </tr>
         </thead>
+
         <tbody>
           {/* Main commodity row */}
           <tr>
@@ -275,7 +282,17 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             <td></td>
           </tr>
 
-          {/* Totals row only (no extra blanks) */}
+          {/* Two empty lines before totals */}
+          <tr>
+            <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td>
+          </tr>
+
+          {/* Totals row */}
           <tr>
             <td className="center" style={{ backgroundColor: "#ffff99" }}>
               {frames || ""}
@@ -393,11 +410,8 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               />{" "}
               By Shipper
               <br />
-              <input
-                type="checkbox"
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              By Driver
+              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
+              Driver
             </td>
             <td style={{ width: "22%", verticalAlign: "top" }}>
               <strong>Freight Counted</strong>
@@ -409,17 +423,11 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               />{" "}
               By Shipper
               <br />
-              <input
-                type="checkbox"
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              By Driver / pallet said to contain
+              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
+              Driver / pallet said to contain
               <br />
-              <input
-                type="checkbox"
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              By Driver / pieces
+              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
+              Driver / pieces
             </td>
             <td style={{ width: "21%", verticalAlign: "top" }}>
               Carrier acknowledges receipt of packages and required placards.
@@ -432,7 +440,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
         </tbody>
       </table>
 
-      {/* ========== FINAL SIGNATURES ========== */}
+      {/* ========== FINAL SIGNATURES (Option D) ========== */}
       <table
         className="bol-table"
         style={{
@@ -443,17 +451,36 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
       >
         <tbody>
           <tr>
-            <td style={{ width: "50%" }}>
-              ______________________________________
-              <br />
-              Shipper Signature &nbsp;&nbsp;&nbsp; Date: {dateStr}
+            {/* LEFT CELL: Shipper + Date side-by-side (short lines) */}
+            <td style={{ width: "50%", verticalAlign: "top" }}>
+              <div style={{ display: "flex", gap: "12mm" }}>
+                <div>
+                  _____________________
+                  <br />
+                  Shipper Signature
+                </div>
+                <div>
+                  _____________________
+                  <br />
+                  Date: {dateStr}
+                </div>
+              </div>
             </td>
-            <td style={{ width: "50%" }}>
-              ______________________________________
-              <br />
-              Carrier Signature
-              <br />
-              Pickup Date: ___________________
+
+            {/* RIGHT CELL: Carrier + Pickup Date side-by-side (short lines) */}
+            <td style={{ width: "50%", verticalAlign: "top" }}>
+              <div style={{ display: "flex", gap: "12mm" }}>
+                <div>
+                  _____________________
+                  <br />
+                  Carrier Signature
+                </div>
+                <div>
+                  _____________________
+                  <br />
+                  Pick up Date
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -482,9 +509,7 @@ function TempLayout({
 
   const mark = (v) => (v === "yes" ? "✓" : "✗");
 
-  const failedEntries = Object.entries(checks).filter(
-    ([, v]) => v === "no"
-  );
+  const failedEntries = Object.entries(checks).filter(([, v]) => v === "no");
   const anyFailed = failedEntries.length > 0;
 
   const failureLines = anyFailed
@@ -500,7 +525,7 @@ function TempLayout({
   const formattedTemp = temperature ? `${temperature}°C` : "";
 
   return (
-    <div className="print-area temp-page page">
+    <div className="temp-page page">
       <h2 style={{ fontWeight: "bold", textAlign: "center" }}>
         Voilà Trailer Pre-Load Form
       </h2>
@@ -528,50 +553,13 @@ function TempLayout({
 
       <table className="bol-table">
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Incoming Trailer in Good Condition</td>
-            <td>{mark(checks.q1)}</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>
-              Cleanliness (No Contamination Risk from Dirt, Debris, Garbage,
-              Damaged Pallets, etc.)
-            </td>
-            <td>{mark(checks.q2)}</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>
-              Structural Concerns (No visible trailer damage or holes that can
-              compromise product)
-            </td>
-            <td>{mark(checks.q3)}</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>No Indication and Free of Pest Infestation</td>
-            <td>{mark(checks.q4)}</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Within Temperature Range and No Signs of Temperature Abuse</td>
-            <td>{mark(checks.q5)}</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>No Signs of Physical Damage to Product or Packaging</td>
-            <td>{mark(checks.q6)}</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>
-              No Signs and Free of Chemical Contamination and Other
-              Contaminates
-            </td>
-            <td>{mark(checks.q7)}</td>
-          </tr>
+          <tr><td>1</td><td>Incoming Trailer in Good Condition</td><td>{mark(checks.q1)}</td></tr>
+          <tr><td>2</td><td>Cleanliness (No Contamination Risk from Dirt, Debris, Garbage, Damaged Pallets, etc.)</td><td>{mark(checks.q2)}</td></tr>
+          <tr><td>3</td><td>Structural Concerns (No visible trailer damage or holes that can compromise product)</td><td>{mark(checks.q3)}</td></tr>
+          <tr><td>4</td><td>No Indication and Free of Pest Infestation</td><td>{mark(checks.q4)}</td></tr>
+          <tr><td>5</td><td>Within Temperature Range and No Signs of Temperature Abuse</td><td>{mark(checks.q5)}</td></tr>
+          <tr><td>6</td><td>No Signs of Physical Damage to Product or Packaging</td><td>{mark(checks.q6)}</td></tr>
+          <tr><td>7</td><td>No Signs and Free of Chemical Contamination and Other Contaminates</td><td>{mark(checks.q7)}</td></tr>
         </tbody>
       </table>
 
@@ -609,7 +597,14 @@ function TempLayout({
               </td>
               <td className="center">{initials}</td>
             </tr>
+          
           )}
+          <tr>
+            <td>&nbsp;</td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td><td></td><td></td><td></td><td></td>
+          </tr>
         </tbody>
       </table>
 
@@ -658,11 +653,10 @@ export default function PrintLayout({
 }) {
   return (
     <div className="print-wrapper">
-
-      {/* ===================== BOL — NO BORDER ===================== */}
+      {/* BOL — NO BORDER */}
       {activePreview === "BOL" && (
         <div
-          className="bol-print-area"   // <-- NEW CLASS WITH NO BORDER
+          className="bol-print-area"
           style={{
             width: "210mm",
             minHeight: "297mm",
@@ -681,7 +675,7 @@ export default function PrintLayout({
         </div>
       )}
 
-      {/* ===================== TEMP CHECK — BORDER + EXTRA TOP LINE ===================== */}
+      {/* TEMP CHECK — BORDER + EXTRA TOP LINE */}
       {activePreview === "TEMP" && (
         <div
           className="temp-print-area"
@@ -692,7 +686,7 @@ export default function PrintLayout({
             boxSizing: "border-box",
             padding: "12mm",
             border: "2px solid #000",
-            borderTop: "4px solid #000",   // <-- EXTRA TOP LINE
+            borderTop: "4px solid #000",
           }}
         >
           <TempLayout
@@ -705,7 +699,6 @@ export default function PrintLayout({
           />
         </div>
       )}
-
     </div>
   );
 }
