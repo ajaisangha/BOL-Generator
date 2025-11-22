@@ -12,7 +12,6 @@ const TRAILER_OPTIONS = [
 ];
 
 function App() {
-  // Which document type: BOL or TEMP
   const [docType, setDocType] = useState("BOL");
 
   const [selectedTrailerOption, setSelectedTrailerOption] = useState("832059");
@@ -25,7 +24,6 @@ function App() {
   const [supervisorName, setSupervisorName] = useState("");
   const [initials, setInitials] = useState("");
 
-  // Default temperature = 2.2
   const [temperature, setTemperature] = useState("2.2");
 
   const [checks, setChecks] = useState({
@@ -71,9 +69,7 @@ function App() {
     return `V_${yyyy}${mm}${dd}_${trailerNumber}`;
   }, [trailerNumber]);
 
-  const handlePrint = () => {
-    window.print();
-  };
+  const handlePrint = () => window.print();
 
   const yesNoSelect = (label, key) => (
     <label className="form-field" key={key}>
@@ -89,26 +85,23 @@ function App() {
   );
 
   const failedKeys = Object.entries(checks)
-    .filter(([, value]) => value === "no")
-    .map(([key]) => key);
-
-  const anyFailures = failedKeys.length > 0;
+    .filter(([, v]) => v === "no")
+    .map(([k]) => k);
 
   const activePreview = docType === "BOL" ? "BOL" : "TEMP";
 
   return (
     <div className="app-container">
-      {/* Top title centered */}
       <div className="app-header">
         <h1>Trailer Paperwork Generator</h1>
       </div>
 
-      {/* Main 2-column layout */}
       <div className="app-body">
-        {/* LEFT SIDE — options + fields */}
+        {/* LEFT PANEL */}
         <div className="left-panel">
           <div className="form-root">
-            {/* Step 1: Choose document type */}
+
+            {/* Choose Document Type */}
             <div className="form-field">
               <span style={{ fontWeight: "bold", marginBottom: 4 }}>
                 What do you want to generate?
@@ -137,7 +130,7 @@ function App() {
               </div>
             </div>
 
-            {/* Trailer Selection (used for both) */}
+            {/* Trailer selection */}
             <label className="form-field">
               <span>Trailer</span>
               <select
@@ -152,6 +145,7 @@ function App() {
               </select>
             </label>
 
+            {/* OTHER trailer */}
             {selectedTrailerOption === "other" && (
               <>
                 <label className="form-field">
@@ -175,7 +169,7 @@ function App() {
               </>
             )}
 
-            {/* ---------------- TEMP CHECK FIELDS ---------------- */}
+            {/* TEMP CHECK FIELDS */}
             {docType === "TEMP" && (
               <>
                 <h3>Temp Check Details</h3>
@@ -209,17 +203,14 @@ function App() {
                 <h3>Temp Check Questions</h3>
 
                 {yesNoSelect("Incoming Trailer in Good Condition", "q1")}
-                {yesNoSelect(
-                  "Cleanliness (No contamination risk)",
-                  "q2"
-                )}
+                {yesNoSelect("Cleanliness (No contamination risk)", "q2")}
                 {yesNoSelect("Structural Concerns", "q3")}
                 {yesNoSelect("No indication of pest infestation", "q4")}
                 {yesNoSelect("No temperature abuse", "q5")}
                 {yesNoSelect("No physical damage", "q6")}
                 {yesNoSelect("No chemical contamination", "q7")}
 
-                {anyFailures &&
+                {failedKeys.length > 0 &&
                   failedKeys.map((key) => {
                     const num = key.replace("q", "");
                     return (
@@ -249,7 +240,7 @@ function App() {
               </>
             )}
 
-            {/* ---------------- BOL FIELDS ---------------- */}
+            {/* BOL FIELDS */}
             {docType === "BOL" && (
               <>
                 <h3>BOL Details</h3>
@@ -287,7 +278,7 @@ function App() {
           </div>
         </div>
 
-        {/* RIGHT SIDE — preview */}
+        {/* RIGHT PANEL PREVIEW */}
         <div className="right-panel">
           <h2>Print Preview</h2>
 

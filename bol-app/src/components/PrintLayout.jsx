@@ -235,7 +235,17 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             </th>
             <th rowSpan={2} style={{ width: "80mm" }}>
               Commodity Description
+              <tr
+              style={{
+                fontWeight: "normal",
+                fontSize: "10px",
+                borderTop: '1.5px solid black'
+              }}
+            >
+              {commodityNotice}
+            </tr>
             </th>
+            
             <th colSpan={2}>LTL Only</th>
           </tr>
 
@@ -249,21 +259,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
             <th style={{ width: "15mm" }}>Class</th>
           </tr>
 
-          {/* Notice row ONLY under Commodity Description col */}
-          <tr>
-            <th colSpan={6} style={{ border: "none" }}></th>
-            <th
-              style={{
-                fontWeight: "normal",
-                fontSize: "8px",
-                lineHeight: "1.1",
-                verticalAlign: "top",
-              }}
-            >
-              {commodityNotice}
-            </th>
-            <th colSpan={2} style={{ border: "none" }}></th>
-          </tr>
+          
         </thead>
 
         <tbody>
@@ -283,10 +279,6 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
           </tr>
 
           {/* Two empty lines before totals */}
-          <tr>
-            <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
-            <td></td><td></td><td></td>
-          </tr>
           <tr>
             <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
             <td></td><td></td><td></td>
@@ -324,7 +316,7 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               Where the rate is dependent on value, shippers are required to
               state specifically in writing the agreed or declared value of the
               property as follows:
-              <br />
+              
               <br />
               The agreed or declared value of the property is specifically
               stated by the shipper to be not exceeding
@@ -656,7 +648,7 @@ export default function PrintLayout({
       {/* BOL — NO BORDER */}
       {activePreview === "BOL" && (
         <div
-          className="bol-print-area"
+          className="bol-print-area print-bol"
           style={{
             width: "210mm",
             minHeight: "297mm",
@@ -678,7 +670,7 @@ export default function PrintLayout({
       {/* TEMP CHECK — BORDER + EXTRA TOP LINE */}
       {activePreview === "TEMP" && (
         <div
-          className="temp-print-area"
+          className="temp-print-area print-temp"
           style={{
             width: "210mm",
             minHeight: "297mm",

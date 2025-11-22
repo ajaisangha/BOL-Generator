@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------
-   GLOBAL APP LAYOUT (SCREEN)
+   GLOBAL SCREEN LAYOUT
 --------------------------------------------------------- */
 
 .app-container {
@@ -25,7 +25,7 @@
   margin: 0 auto;
 }
 
-/* Left panel (forms) */
+/* LEFT PANEL */
 .left-panel {
   width: 480px;
   padding: 20px;
@@ -34,7 +34,7 @@
   border: 2px solid #444;
 }
 
-/* Right panel (preview) */
+/* RIGHT PANEL */
 .right-panel {
   flex: 1;
   padding: 12px;
@@ -44,6 +44,7 @@
 /* ---------------------------------------------------------
    FORM ELEMENTS
 --------------------------------------------------------- */
+
 .form-root {
   display: flex;
   flex-direction: column;
@@ -113,7 +114,7 @@
    PRINT PREVIEW PANELS
 --------------------------------------------------------- */
 
-/* BOL — NO BORDER */
+/* BOL — NO BORDER (screen preview) */
 .bol-print-area {
   width: 210mm;
   min-height: 297mm;
@@ -121,6 +122,7 @@
   margin: 0 auto;
   background: white;
   box-sizing: border-box;
+  font-family: "Arial Narrow", Arial, sans-serif;
   border: none !important;
 }
 
@@ -130,10 +132,11 @@
   min-height: 297mm;
   margin: 0 auto;
   padding: 12mm;
-  box-sizing: border-box;
-  border: 2px solid #000 !important;
-  border-top: 4px solid #000 !important; /* EXTRA THICK TOP LINE */
   background: white;
+  border: 2px solid #000 !important;
+  border-top: 4px solid #000 !important;
+  box-sizing: border-box;
+  font-family: "Arial Narrow", Arial, sans-serif;
 }
 
 /* TABLES */
@@ -158,9 +161,9 @@
   text-align: center;
 }
 
-/* ---------------------------------------------------------
-   PRINT MODE
---------------------------------------------------------- */
+/* ==========================================================
+   PRINT MODE — SEPARATED FOR BOL AND TEMP
+========================================================== */
 @media print {
 
   @page {
@@ -172,9 +175,10 @@
     margin: 0 !important;
     padding: 0 !important;
     background: #fff !important;
+    height: auto !important;
   }
 
-  /* Hide all UI */
+  /* Hide UI */
   .left-panel,
   .right-panel > h2,
   .toggle-buttons,
@@ -182,47 +186,65 @@
     display: none !important;
   }
 
-  /* Printing BOL — NO BORDER */
-  .bol-print-area {
+  /* ==========================================
+     TEMP CHECK — NO SCALING (keeps perfect fit)
+  ========================================== */
+  .print-temp {
     position: absolute !important;
-    top: 5mm !important;     /* SAFE PRINT MARGIN */
+    top: 5mm !important;
     left: 0 !important;
 
     width: 210mm !important;
     min-height: auto !important;
     height: auto !important;
 
-    padding: 12mm !important;
-    border: none !important;
-
-    margin: 0 !important;
-    box-sizing: border-box !important;
-    background: #fff !important;
-  }
-
-  /* Printing TEMP CHECK — WITH BORDER */
-  .temp-print-area {
-    position: absolute !important;
-    top: 5mm !important;     /* SAFE PRINT MARGIN */
-    left: 0 !important;
-
-    width: 210mm !important;
-    min-height: auto !important;
-    height: auto !important;
-
-    padding: 12mm !important;
+    padding: 10mm !important;
 
     border: 2px solid #000 !important;
     border-top: 4px solid #000 !important;
-
-    margin: 0 !important;
-    background: white !important;
     box-sizing: border-box !important;
-  }
 
-  /* Ensure borders always print */
-  .bol-table td,
-  .bol-table th {
-    border: 1px solid #000 !important;
+    transform: none !important;      /* <- Key fix */
+    page-break-after: avoid !important;
+    overflow: hidden !important;
   }
+  
+/* =====================================================
+   BOL — FORCE FIT TO ONE A4 PAGE (Excel-style)
+===================================================== */
+.print-bol {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+
+  width: 210mm !important;
+  height: auto !important;
+
+  /* ↓↓↓ Reduce padding so content fits vertically */
+  padding: 6mm 8mm !important;
+
+  border: none !important;
+  box-sizing: border-box !important;
+
+  /* ↓↓↓ Adjusted scale (fits perfectly in your screenshot) */
+  transform-origin: top left !important;
+  transform: scale(0.84) !important;
+
+  overflow: hidden !important;
+
+  page-break-before: avoid !important;
+  page-break-after: avoid !important;
+}
+
+/* Reduce spacing between tables */
+.bol-table {
+  margin-bottom: 2px !important;
+}
+
+/* Shrink tall bottom content */
+.bol-table.bottom-block td {
+  font-size: 8px !important;
+  line-height: 1.1 !important;
+}
+
 }
