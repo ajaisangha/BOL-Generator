@@ -48,15 +48,19 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
 
           {/* Row 2: Ship From + BOL No */}
           <tr>
-            <td className="label-cell" style={{ width: "40mm" }}>
-              Ship From:
-            </td>
-            <td colSpan={7} style={{ width: "90mm" }}>
+            <td className="label-cell" colSpan={7} style={{ width: "90mm" }}>
+              Ship From:<br />
+            
               Vaughan CFC
               <br />
               100 Gibraltar Road
               <br />
               Vaughan, ON L4H 3N5
+              <br />
+              <span className="label-cell">SID#&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+                  FOB
+                </span>
             </td>
             <td colSpan={2} className="label-cell" style={{ width: "30mm" }}>
               Bill of Lading No:
@@ -65,32 +69,14 @@ function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
               {bolNumber}
             </td>
           </tr>
-
-          {/* Row 3: SID# (blank) + checkbox + FOB */}
-          <tr>
-            <td colSpan={12}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <span className="label-cell">SID#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-                  FOB
-                </span>
-              </div>
-            </td>
-          </tr>
-
+         
           {/* Row 4: Ship To + Trailer No */}
           <tr>
             <td colSpan={7}>Ship To: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
               Location No:{shipToLines.map((line, idx) => (
                 <div key={idx}>{line}</div>
               ))}
-              <span className="label-cell">CID#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <span className="label-cell">CID#&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
                   FOB
                 </span>
