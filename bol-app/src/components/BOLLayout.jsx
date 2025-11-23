@@ -282,7 +282,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             <td colSpan={5} style={{ width: "50%", verticalAlign: "top" }}>
               The carrier shall not make delivery of this shipment without
               payment of freight and all other lawful charges.
-              <br />
+              <div style={{ height: "30px" }}></div>
               <br />
               ________________________________________
               <br />
@@ -343,10 +343,10 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               </div>
             </td>
             <td style={{ width: "35%", verticalAlign: "top" }}>
-              <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+              <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
                 
                 {/* LEFT COLUMN */}
-                <div>
+                <div style={{ width: "60%", verticalAlign: "top" }}>
                   <strong>Trailer Loaded</strong>
                   <br />
                   <input
@@ -358,7 +358,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                   <br />
                   <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By Driver
                 </div>
-                &emsp;&emsp;&emsp;
+                &emsp;&emsp;
                 {/* RIGHT COLUMN */}
                 <div>
                   <strong>Freight Counted</strong>
