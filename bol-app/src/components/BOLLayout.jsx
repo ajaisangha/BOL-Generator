@@ -118,64 +118,68 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             </tr>
     
           <tr >
-            <td className="label-cell" style={{ fontWeight: "bold" }} colSpan={4}>
+            <td className="label-cell" style={{ fontWeight: "bold", verticalAlign: "top" }} colSpan={4}>
               Freight Charge Terms (prepaid unless marked otherwise):
+                <div style={{ fontWeight: "normal" }}>
+                  <input
+                    type="checkbox"
+                    defaultChecked
+                    style={{ transform: "scale(0.8)" }}
+                  />{" "}
+                  Prepaid&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+                  Collect&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} /> 3rd
+                  Party
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  borderTop: "1px solid #000",
+                  margin: "6px 0 4px 0",
+                }}
+              ></div>
+              <div>
+                3rd Party Freight Charges - Bill To:
+              </div>
             </td>
             <td className="label-cell" style={{ fontWeight: "bold" }} colSpan={8}>
               Special Instructions: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-              <span style={{ textAlign: "right" }}><input
-                type="checkbox"
-                defaultChecked
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              Master BOL</span>
-            </td>
-            
-          </tr>
+              <span style={{ textAlign: "right" }}>
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  style={{ transform: "scale(0.8)" }}
+                />{" "}
+                Master BOL
+              </span>
 
-          <tr>
-            <td colSpan={4}>
-              <input
-                type="checkbox"
-                defaultChecked
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              Prepaid&nbsp;&nbsp;&nbsp;
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-              Collect&nbsp;&nbsp;&nbsp;
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> 3rd
-              Party
+              <div style={{ marginTop: "4px" }}>
+                {isOttawa ? (
+                  <>
+                    Voila CFC1 Departure Time :
+                    <br />
+                    Mileage Start :
+                    <br />
+                    Ottawa Spoke Arrival Time :
+                    <br />
+                    Mileage End :
+                    <br />
+                    Total Mileage :
+                  </>
+                ) : (
+                  // Placeholder with identical height
+                  <div style={{ height: "85px" }}></div>
+                )}
+              </div>
             </td>
-
-            {isOttawa ? (
-              <td colSpan={8}>
-                Voila CFC1 Departure Time :
-                <br />
-                Mileage Start :
-                <br />
-                Ottawa Spoke Arrival Time :
-                <br />
-                Mileage End :
-                <br />
-                Total Mileage :
-              </td>
-            ) : (
-              <td colSpan={8}></td>
-            )}
           </tr>
         </tbody>
-      </table>
+    
 
       {/* ========== COMMODITY TABLE (notice in Commodity Description sub-header row) ========== */}
-      <table
-        className="bol-table"
-        style={{
-          fontSize: "9px",
-          width: "190mm",
-          margin: "4px auto 0 auto",
-        }}
-      >
-        <thead>
+      
+        <tbody className="bol-table" style={{ fontWeight: "bold" }}>
           {/* Group headers */}
           <tr>
             <th colSpan={2}>Handling Unit</th>
@@ -213,14 +217,9 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             <th style={{ width: "15mm" }}>NMFC No.</th>
             <th style={{ width: "15mm" }}>Class</th>
           </tr>
-
-          
-        </thead>
-
-        <tbody>
           {/* Main commodity row */}
           <tr>
-            <td className="center" style={{ backgroundColor: "#ffff99" }}>
+            <td className="center" style={{ backgroundColor: "#ffff99", width: "4px" }}>
               {frames || ""}
             </td>
             <td className="center">Frames</td>
@@ -254,20 +253,15 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             <td></td>
           </tr>
         </tbody>
-      </table>
-
       {/* ========== DECLARED VALUE / SHIPPER SIGNATURE (upper) ========== */}
-      <table
-        className="bol-table"
+        <tbody className="bol-table"
         style={{
           fontSize: "9px",
           width: "190mm",
           margin: "4px auto 0 auto",
-        }}
-      >
-        <tbody>
+        }}>
           <tr>
-            <td style={{ width: "50%", verticalAlign: "top" }}>
+            <td colSpan={5} style={{ verticalAlign: "top" }}>
               Where the rate is dependent on value, shippers are required to
               state specifically in writing the agreed or declared value of the
               property as follows:
@@ -279,7 +273,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               <br />
               _____________________________&nbsp;&nbsp;FOB&nbsp;_________________________
             </td>
-            <td style={{ width: "50%", verticalAlign: "top" }}>
+            <td colSpan={5} style={{ width: "50%", verticalAlign: "top" }}>
               The carrier shall not make delivery of this shipment without
               payment of freight and all other lawful charges.
               <br />
@@ -290,25 +284,21 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             </td>
           </tr>
         </tbody>
-      </table>
-
       {/* ========== LIABILITY NOTICE ========== */}
-      <table
-        className="bol-table"
+        <tbody className="bol-table" colSpan={10}
         style={{
           fontSize: "8px",
-          width: "190mm",
           margin: "4px auto 0 auto",
-        }}
-      >
-        <tbody>
+        }}>
           <tr>
-            <td>
+            <td >
               <strong>
                 NOTE: Liability limitation for loss or damage in this shipment
                 may be applicable. See 49 U.S.C. §14706(c)(1)(A) and (B).
               </strong>
-              <br />
+              <div style={{
+                borderTop: '1.5px solid black'
+              }}>
               RECEIVED, subject to individually determined rates or contracts
               that have been agreed upon in writing between the carrier and
               shipper, if applicable, otherwise to the rates, classifications
@@ -324,98 +314,70 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               hereby certifies that he is familiar with all the bill of lading
               terms and conditions in the governing classification and the said
               terms and conditions are hereby agreed to by the shipper and
-              accepted for himself and his assigns.
+              accepted for himself and his assigns.</div>
             </td>
           </tr>
         </tbody>
-      </table>
-
       {/* ========== TRAILER LOADED / FREIGHT COUNTED / CERTIFICATION ========== */}
-      <table
-        className="bol-table"
-        style={{
-          fontSize: "9px",
-          width: "190mm",
-          margin: "4px auto 0 auto",
-        }}
-      >
-        <tbody>
+        <tbody className="bol-table" >
           <tr>
-            <td style={{ width: "35%", verticalAlign: "top" }}>
+            <td style={{ width: "27%", verticalAlign: "top" }}>
               This is to certify that the above named materials are properly
               classified, packaged, marked and labeled, and are in proper
               condition for transportation according to the applicable
-              regulations of the DOT.
-            </td>
-            <td style={{ width: "22%", verticalAlign: "top" }}>
-              <strong>Trailer Loaded</strong>
-              <br />
-              <input
-                type="checkbox"
-                defaultChecked
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              By Shipper
-              <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Driver
-            </td>
-            <td style={{ width: "22%", verticalAlign: "top" }}>
-              <strong>Freight Counted</strong>
-              <br />
-              <input
-                type="checkbox"
-                defaultChecked
-                style={{ transform: "scale(0.8)" }}
-              />{" "}
-              By Shipper
-              <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Driver / pallet said to contain
-              <br />
-              <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By
-              Driver / pieces
-            </td>
-            <td style={{ width: "21%", verticalAlign: "top" }}>
-              Carrier acknowledges receipt of packages and required placards.
-              Carrier certifies emergency response information was made
-              available and/or carrier has the DOT emergency response guidebook
-              or equivalent documentation in the vehicle. Property described
-              above is received in good order, except as noted.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* ========== FINAL SIGNATURES (Option D) ========== */}
-      <table
-        className="bol-table"
-        style={{
-          fontSize: "9px",
-          width: "190mm",
-          margin: "4px auto 0 auto",
-        }}
-      >
-        <tbody>
-          <tr>
-            {/* LEFT CELL: Shipper + Date side-by-side (short lines) */}
-            <td style={{ width: "50%", verticalAlign: "top" }}>
+              regulations of the DOT.<br/>
               <div style={{ display: "flex", gap: "12mm" }}>
                 <div>
                   _____________________
                   <br />
                   Shipper Signature
                 </div>
-                <div>
-                  _____________________
-                  <br />
                   Date: {dateStr}
-                </div>
               </div>
             </td>
+            <td style={{ width: "35%", verticalAlign: "top" }}>
+              <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                
+                {/* LEFT COLUMN */}
+                <div>
+                  <strong>Trailer Loaded</strong>
+                  <br />
+                  <input
+                    type="checkbox"
+                    defaultChecked
+                    style={{ transform: "scale(0.8)" }}
+                  />{" "}
+                  By Shipper
+                  <br />
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By Driver
+                </div>
+                &emsp;&emsp;&emsp;
+                {/* RIGHT COLUMN */}
+                <div>
+                  <strong>Freight Counted</strong>
+                  <br />
+                  <input
+                    type="checkbox"
+                    defaultChecked
+                    style={{ transform: "scale(0.8)" }}
+                  />{" "}
+                  By Shipper
+                  <br />
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By Driver /
+                  pallet said to contain
+                  <br />
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} /> By Driver /
+                  pieces
+                </div>
 
-            {/* RIGHT CELL: Carrier + Pickup Date side-by-side (short lines) */}
-            <td style={{ width: "50%", verticalAlign: "top" }}>
+              </div>
+            </td>
+            <td style={{ width: "38%", verticalAlign: "top" }}>
+              Carrier acknowledges receipt of packages and required placards.
+              Carrier certifies emergency response information was made
+              available and/or carrier has the DOT emergency response guidebook
+              or equivalent documentation in the vehicle. Property described
+              above is received in good order, except as noted.
               <div style={{ display: "flex", gap: "12mm" }}>
                 <div>
                   _____________________
