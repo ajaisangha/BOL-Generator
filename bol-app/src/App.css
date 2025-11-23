@@ -204,27 +204,27 @@
     page-break-after: avoid !important;
     overflow: hidden !important;
   }
-
 /* =====================================================
-   BOL — FORCE FIT TO ONE A4 PAGE (Excel-style)
+   BOL — PERFECT 1-PAGE FIT (Excel-style full width)
 ===================================================== */
 .print-bol {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
 
+  /* FULL A4 EXACT CANVAS */
   width: 210mm !important;
-  height: auto !important;
+  height: 297mm !important;
 
-  /* ↓↓↓ Reduce padding so content fits vertically */
-  padding: 6mm 8mm !important;
+  /* Balanced padding that matches your PDF */
+  padding: 10mm 12mm !important;
 
   border: none !important;
   box-sizing: border-box !important;
 
-  /* ↓↓↓ Adjusted scale (fits perfectly in your screenshot) */
+  /* ⭐ FINAL FIX → scaling increased from 0.84 to 0.97 */
   transform-origin: top left !important;
-  transform: scale(0.84) !important;
+  transform: scale(0.97) !important;
 
   overflow: hidden !important;
 

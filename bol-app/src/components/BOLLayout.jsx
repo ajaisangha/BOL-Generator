@@ -27,8 +27,13 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
   return (
     <div
       className="bol-page page"
-      style={{ fontFamily: '"Arial Narrow", Arial, sans-serif' }}
+      style={{
+        fontFamily: '"Arial Narrow", Arial, sans-serif',
+        width: "190mm",
+        margin: "0 auto",
+      }}
     >
+
       {/* ========== HEADER / ADDRESS BLOCK ========== */}
       <table
         className="bol-table"
@@ -327,6 +332,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               classified, packaged, marked and labeled, and are in proper
               condition for transportation according to the applicable
               regulations of the DOT.<br/>
+              <div style={{ height: "30px" }}></div>
               <div style={{ display: "flex", gap: "12mm" }}>
                 <div>
                   _____________________
@@ -379,6 +385,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               available and/or carrier has the DOT emergency response guidebook
               or equivalent documentation in the vehicle. Property described
               above is received in good order, except as noted.
+              <div style={{ height: "30px" }}></div>
               <div style={{ display: "flex", gap: "12mm" }}>
                 <div>
                   _____________________
