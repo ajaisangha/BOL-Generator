@@ -35,6 +35,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
         style={{ fontSize: "10px", width: "190mm", margin: "0 auto" }}
       >
         <tbody>
+          <tr>
           {/* Row 1: Title + Date */}
           <tr>
             <td colSpan={8} style={{ verticalAlign: "top" }}>
@@ -174,12 +175,12 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               </div>
             </td>
           </tr>
-        </tbody>
+        </tr>
     
 
       {/* ========== COMMODITY TABLE (notice in Commodity Description sub-header row) ========== */}
       
-        <tbody className="bol-table" style={{ fontWeight: "bold" }}>
+        <tr className="bol-table" style={{ fontWeight: "bold" }}>
           {/* Group headers */}
           <tr>
             <th colSpan={2}>Handling Unit</th>
@@ -252,9 +253,9 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             <td></td>
             <td></td>
           </tr>
-        </tbody>
+        </tr>
       {/* ========== DECLARED VALUE / SHIPPER SIGNATURE (upper) ========== */}
-        <tbody className="bol-table"
+        <tr className="bol-table"
         style={{
           fontSize: "9px",
           width: "190mm",
@@ -283,9 +284,9 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               Shipper Signature
             </td>
           </tr>
-        </tbody>
+        </tr>
       {/* ========== LIABILITY NOTICE ========== */}
-        <tbody className="bol-table" colSpan={10}
+        <tr className="bol-table" colSpan={10}
         style={{
           fontSize: "8px",
           margin: "4px auto 0 auto",
@@ -317,9 +318,9 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               accepted for himself and his assigns.</div>
             </td>
           </tr>
-        </tbody>
+        </tr>
       {/* ========== TRAILER LOADED / FREIGHT COUNTED / CERTIFICATION ========== */}
-        <tbody className="bol-table" >
+        <tr className="bol-table" >
           <tr>
             <td style={{ width: "27%", verticalAlign: "top" }}>
               This is to certify that the above named materials are properly
@@ -392,6 +393,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               </div>
             </td>
           </tr>
+        </tr>
         </tbody>
       </table>
     </div>
