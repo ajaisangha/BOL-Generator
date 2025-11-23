@@ -2,7 +2,12 @@ import React from "react";
 
 export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
   const today = new Date();
-  const dateStr = today.toLocaleDateString("en-CA");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    const yyyy = today.getFullYear();
+
+    const dateStr = `${mm}/${dd}/${yyyy}`;
+
   const isOttawa = mode === "ottawa";
 
   const shipToLines = isOttawa
@@ -36,16 +41,15 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               <div style={{ fontWeight: "bold" }}>Straight Bill of Lading</div>
               <div>Original - Not Negotiable</div>
             </td>
-            <td colSpan={2} className="label-cell">
-              Date:
+            <td colSpan={3} className="label-cell">
+              Date: &emsp;&emsp; {dateStr}
             </td>
-            <td colSpan={2}>{dateStr}</td>
           </tr>
 
           {/* Row 2: Ship From + BOL No */}
           <tr>
-            <td className="label-cell" colSpan={7} style={{ width: "90mm" }}>
-              Ship From:<br />
+            <td className="label-cell" style={{ width: "70mm", verticalAlign: "top" }}>
+              <div style={{ fontWeight: "bold" }}>Ship From:</div>
             
               Vaughan CFC
               <br />
@@ -53,65 +57,56 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               <br />
               Vaughan, ON L4H 3N5
               <br />
-              <span className="label-cell">SID#&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              <span className="label-cell">SID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
                   FOB
                 </span>
             </td>
-            <td colSpan={2} className="label-cell" style={{ width: "30mm" }}>
-              Bill of Lading No:
+            <td colSpan={10} className="label-cell" style={{ width: "30mm" }}>
+                <span style={{ fontWeight: "bold" }}>Bill of Lading No:</span>&emsp;&emsp; {bolNumber}
             </td>
-            <td colSpan={2} style={{ backgroundColor: "#ffff99", width: "70mm" }}>
-              {bolNumber}
-            </td>
+            
           </tr>
          
           {/* Row 4: Ship To + Trailer No */}
           <tr>
-            <td colSpan={7}>Ship To: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-              Location No:{shipToLines.map((line, idx) => (
+            <td style={{ width: "70mm", verticalAlign: "top" }}>
+                Ship To: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Location No:
+                {shipToLines.map((line, idx) => (
                 <div key={idx}>{line}</div>
-              ))}
-              <span className="label-cell">CID#&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-                  FOB
+                ))}
+
+                <span className="label-cell">
+                CID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <input type="checkbox" style={{ transform: "scale(0.8)" }} /> FOB
                 </span>
             </td>
-           
-            <td colSpan={2} className="label-cell">
-              Trailer No:
-            </td>
-            <td colSpan={2} style={{ backgroundColor: "#ffff99" }}>
-              {trailerNumber}
-            </td>
-          </tr>
-          {/* Row 6: Carrier / Trailer / Seal */}
-          <tr>
-            <td colSpan={2} className="label-cell">
-              Carrier Name:
-            </td>
-            <td colSpan={4}>{carrierName}</td>
-            <td colSpan={2} className="label-cell">
-              Trailer No:
-            </td>
-            <td colSpan={1}>{trailerNumber}</td>
-            <td className="label-cell">Seal Number(s):</td>
-            <td colSpan={2} style={{ backgroundColor: "#ffff99" }}>
-              {sealNumber}
-            </td>
-          </tr>
 
-          <tr>
-            <td colSpan={2} className="label-cell">
-              SCAC:
+            <td colSpan={10} className="label-cell" style={{ verticalAlign: "top" }}>
+                <div>
+                <span style={{ fontWeight: "bold" }}>Carrier Name:</span> &emsp; {carrierName}
+                </div>
+
+                <div>
+                <span style={{ fontWeight: "bold" }}>Trailer No:</span> &emsp; {trailerNumber}
+                </div>
+
+                <div>
+                <span style={{ fontWeight: "bold" }}>Seal Number:</span> &emsp; {sealNumber}
+                </div>
+
+                <div style={{ marginTop: "4px" }}>
+                <span style={{ fontWeight: "bold" }}>SCAC:</span> &emsp; CACG
+                </div>
+
+                <div>
+                <span style={{ fontWeight: "bold" }}>Pro No:</span>
+                </div>
+
+                <div style={{ height: "30px" }}></div>
             </td>
-            <td colSpan={2}>CACG</td>
-            <td colSpan={2} className="label-cell">
-              Pro No:
-            </td>
-            <td colSpan={6}></td>
-          </tr>
-        </tbody>
+            </tr>
+    </tbody>
       </table>
 
       {/* ========== FREIGHT TERMS / SPECIAL INSTRUCTIONS ========== */}
