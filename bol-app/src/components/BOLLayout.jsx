@@ -70,7 +70,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
          
           {/* Row 4: Ship To + Trailer No */}
           <tr>
-            <td style={{ width: "70mm", verticalAlign: "top" }}>
+            <td style={{ width: "80mm", verticalAlign: "top" }}>
                 <span style={{ fontWeight: "bolder" }}>Ship To:</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Location No:
                 {shipToLines.map((line, idx) => (
                 <div key={idx}>{line}</div>
