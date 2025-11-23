@@ -71,7 +71,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
           {/* Row 4: Ship To + Trailer No */}
           <tr>
             <td style={{ width: "70mm", verticalAlign: "top" }}>
-                Ship To: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Location No:
+                <span style={{ fontWeight: "bolder" }}>Ship To:</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Location No:
                 {shipToLines.map((line, idx) => (
                 <div key={idx}>{line}</div>
                 ))}
@@ -83,57 +83,54 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             </td>
 
             <td colSpan={10} className="label-cell" style={{ verticalAlign: "top" }}>
-                <div>
+              <div>
                 <span style={{ fontWeight: "bold" }}>Carrier Name:</span> &emsp; {carrierName}
-                </div>
+              </div>
 
-                <div>
+              <div>
                 <span style={{ fontWeight: "bold" }}>Trailer No:</span> &emsp; {trailerNumber}
-                </div>
+              </div>
 
-                <div>
+              <div>
                 <span style={{ fontWeight: "bold" }}>Seal Number:</span> &emsp; {sealNumber}
-                </div>
+              </div>
 
-                <div style={{ marginTop: "4px" }}>
+              {/* ⭐ FULL-WIDTH HORIZONTAL LINE UNDER SEAL NUMBER */}
+              <div
+                style={{
+                  marginTop: "4px",
+                  borderBottom: "1px solid #000",
+                  width: "100%",
+                }}
+              ></div>
+
+              <div style={{ marginTop: "4px" }}>
                 <span style={{ fontWeight: "bold" }}>SCAC:</span> &emsp; CACG
-                </div>
+              </div>
 
-                <div>
+              <div>
                 <span style={{ fontWeight: "bold" }}>Pro No:</span>
-                </div>
+              </div>
 
-                <div style={{ height: "30px" }}></div>
+              <div style={{ height: "30px" }}></div>
             </td>
-            </tr>
-    </tbody>
-      </table>
 
-      {/* ========== FREIGHT TERMS / SPECIAL INSTRUCTIONS ========== */}
-      <table
-        className="bol-table"
-        style={{
-          fontSize: "9px",
-          width: "190mm",
-          margin: "2px auto 0 auto",
-        }}
-      >
-        <tbody>
-          <tr>
-            <td className="label-cell" colSpan={4}>
+            </tr>
+    
+          <tr >
+            <td className="label-cell" style={{ fontWeight: "bold" }} colSpan={4}>
               Freight Charge Terms (prepaid unless marked otherwise):
             </td>
-            <td className="label-cell" colSpan={4}>
-              Special Instructions:
-            </td>
-            <td colSpan={4} style={{ textAlign: "right" }}>
-              <input
+            <td className="label-cell" style={{ fontWeight: "bold" }} colSpan={8}>
+              Special Instructions: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              <span style={{ textAlign: "right" }}><input
                 type="checkbox"
                 defaultChecked
                 style={{ transform: "scale(0.8)" }}
               />{" "}
-              Master BOL
+              Master BOL</span>
             </td>
+            
           </tr>
 
           <tr>
