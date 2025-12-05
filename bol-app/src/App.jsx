@@ -5,7 +5,7 @@ import "./App.css";
 const TRAILER_OPTIONS = [
   { value: "832059", label: "832059 (Ottawa)", site: "ottawa" },
   { value: "832124", label: "832124 (Ottawa)", site: "ottawa" },
-  { value: "53192", label: "53192 (Etobicoke)", site: "etobicoke" },
+  { value: "53194", label: "53194 (Etobicoke)", site: "etobicoke" },
   { value: "53251", label: "53251 (Etobicoke)", site: "etobicoke" },
   { value: "53252", label: "53252 (Etobicoke)", site: "etobicoke" },
   { value: "other", label: "Other", site: null },
