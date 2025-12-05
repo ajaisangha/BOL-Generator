@@ -34,158 +34,156 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
       }}
     >
 
-      {/* ========== HEADER / ADDRESS BLOCK ========== */}
-      <table
-        className="bol-table"
-        style={{ fontSize: "10px", width: "190mm", margin: "0 auto" }}
-      >
+      
+      <table style={{border: "solid 2px"}}>
         <tbody>
-          <tr>
-          {/* Row 1: Title + Date */}
-          <tr>
-            <td colSpan={8} style={{ verticalAlign: "top" }}>
-              <div style={{ fontWeight: "bold" }}>Straight Bill of Lading</div>
-              <div>Original - Not Negotiable</div>
-            </td>
-            <td colSpan={3} className="label-cell">
-              Date: &emsp;&emsp; {dateStr}
-            </td>
-          </tr>
-
-          {/* Row 2: Ship From + BOL No */}
-          <tr>
-            <td className="label-cell" style={{ width: "70mm", verticalAlign: "top" }}>
-              <div style={{ fontWeight: "bold" }}>Ship From:</div>
-            
-              Vaughan CFC
-              <br />
-              100 Gibraltar Road
-              <br />
-              Vaughan, ON L4H 3N5
-              <br />
-              <span className="label-cell">SID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-                  FOB
-                </span>
-            </td>
-            <td colSpan={10} className="label-cell" style={{ width: "30mm" }}>
-                <span style={{ fontWeight: "bold" }}>Bill of Lading No:</span>&emsp;&emsp; {bolNumber}
-            </td>
-            
-          </tr>
-         
-          {/* Row 4: Ship To + Trailer No */}
-          <tr>
-            <td style={{ width: "80mm", verticalAlign: "top" }}>
-                <span style={{ fontWeight: "bolder" }}>Ship To:</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Location No:
-                {shipToLines.map((line, idx) => (
-                <div key={idx}>{line}</div>
-                ))}
-
-                <span className="label-cell">
-                CID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <input type="checkbox" style={{ transform: "scale(0.8)" }} /> FOB
-                </span>
-            </td>
-
-            <td colSpan={10} className="label-cell" style={{ verticalAlign: "top" }}>
-              <div>
-                <span style={{ fontWeight: "bold" }}>Carrier Name:</span> &emsp; {carrierName}
-              </div>
-
-              <div>
-                <span style={{ fontWeight: "bold" }}>Trailer No:</span> &emsp; {trailerNumber}
-              </div>
-
-              <div>
-                <span style={{ fontWeight: "bold" }}>Seal Number:</span> &emsp; {sealNumber}
-              </div>
-
-              {/* ⭐ FULL-WIDTH HORIZONTAL LINE UNDER SEAL NUMBER */}
-              <div
-                style={{
-                  marginTop: "4px",
-                  borderBottom: "1px solid #000",
-                  width: "100%",
-                }}
-              ></div>
-
-              <div style={{ marginTop: "4px" }}>
-                <span style={{ fontWeight: "bold" }}>SCAC:</span> &emsp; CACG
-              </div>
-
-              <div>
-                <span style={{ fontWeight: "bold" }}>Pro No:</span>
-              </div>
-
-              <div style={{ height: "30px" }}></div>
-            </td>
-
+          <tr className="bol-table" style={{ fontSize: "10px", width: "190mm", margin: "0 auto" }}>{/*first */}
+            {/* ========== HEADER / ADDRESS BLOCK ========== */}
+            {/* Row 1: Title + Date */}
+            <tr>
+              <td colSpan={8} style={{ verticalAlign: "top" }}>
+                <div style={{ fontWeight: "bold" }}>Straight Bill of Lading</div>
+                <div>Original - Not Negotiable</div>
+              </td>
+              <td colSpan={3} className="label-cell">
+                Date: &emsp;&emsp; {dateStr}
+              </td>
             </tr>
-    
-          <tr >
-            <td className="label-cell" style={{ fontWeight: "bold", verticalAlign: "top" }} colSpan={4}>
-              Freight Charge Terms (prepaid unless marked otherwise):
-                <div style={{ fontWeight: "normal" }}>
+
+            {/* Row 2: Ship From + BOL No */}
+            <tr>
+              <td className="label-cell" style={{ width: "70mm", verticalAlign: "top" }}>
+                <div style={{ fontWeight: "bold" }}>Ship From:</div>
+              
+                Vaughan CFC
+                <br />
+                100 Gibraltar Road
+                <br />
+                Vaughan, ON L4H 3N5
+                <br />
+                <span className="label-cell">SID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+                    FOB
+                  </span>
+              </td>
+              <td colSpan={10} className="label-cell" style={{ width: "30mm" }}>
+                  <span style={{ fontWeight: "bold" }}>Bill of Lading No:</span>&emsp;&emsp; {bolNumber}
+              </td>
+              
+            </tr>
+          
+            {/* Row 4: Ship To + Trailer No */}
+            <tr>
+              <td style={{ width: "80mm", verticalAlign: "top" }}>
+                  <span style={{ fontWeight: "bolder" }}>Ship To:</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Location No:
+                  {shipToLines.map((line, idx) => (
+                  <div key={idx}>{line}</div>
+                  ))}
+
+                  <span className="label-cell">
+                  CID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                  <input type="checkbox" style={{ transform: "scale(0.8)" }} /> FOB
+                  </span>
+              </td>
+
+              <td colSpan={10} className="label-cell" style={{ verticalAlign: "top" }}>
+                <div>
+                  <span style={{ fontWeight: "bold" }}>Carrier Name:</span> &emsp; {carrierName}
+                </div>
+
+                <div>
+                  <span style={{ fontWeight: "bold" }}>Trailer No:</span> &emsp; {trailerNumber}
+                </div>
+
+                <div>
+                  <span style={{ fontWeight: "bold" }}>Seal Number:</span> &emsp; {sealNumber}
+                </div>
+
+                {/* ⭐ FULL-WIDTH HORIZONTAL LINE UNDER SEAL NUMBER */}
+                <div
+                  style={{
+                    marginTop: "4px",
+                    borderBottom: "1px solid #000",
+                    width: "100%",
+                  }}
+                ></div>
+
+                <div style={{ marginTop: "4px" }}>
+                  <span style={{ fontWeight: "bold" }}>SCAC:</span> &emsp; CACG
+                </div>
+
+                <div>
+                  <span style={{ fontWeight: "bold" }}>Pro No:</span>
+                </div>
+
+                <div style={{ height: "30px" }}></div>
+              </td>
+
+              </tr>
+      
+            <tr >
+              <td className="label-cell" style={{ fontWeight: "bold", verticalAlign: "top" }} colSpan={4}>
+                Freight Charge Terms (prepaid unless marked otherwise):
+                  <div style={{ fontWeight: "normal" }}>
+                    <input
+                      type="checkbox"
+                      defaultChecked
+                      style={{ transform: "scale(0.8)" }}
+                    />{" "}
+                    Prepaid&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
+                    Collect&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" style={{ transform: "scale(0.8)" }} /> 3rd
+                    Party
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    borderTop: "1px solid #000",
+                    margin: "6px 0 4px 0",
+                  }}
+                ></div>
+                <div>
+                  3rd Party Freight Charges - Bill To:
+                </div>
+              </td>
+              <td className="label-cell" style={{ fontWeight: "bold" }} colSpan={8}>
+                Special Instructions: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <span style={{ textAlign: "right" }}>
                   <input
                     type="checkbox"
                     defaultChecked
                     style={{ transform: "scale(0.8)" }}
                   />{" "}
-                  Prepaid&nbsp;&nbsp;&nbsp;
-                  <input type="checkbox" style={{ transform: "scale(0.8)" }} />{" "}
-                  Collect&nbsp;&nbsp;&nbsp;
-                  <input type="checkbox" style={{ transform: "scale(0.8)" }} /> 3rd
-                  Party
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  borderTop: "1px solid #000",
-                  margin: "6px 0 4px 0",
-                }}
-              ></div>
-              <div>
-                3rd Party Freight Charges - Bill To:
-              </div>
-            </td>
-            <td className="label-cell" style={{ fontWeight: "bold" }} colSpan={8}>
-              Special Instructions: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-              <span style={{ textAlign: "right" }}>
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  style={{ transform: "scale(0.8)" }}
-                />{" "}
-                Master BOL
-              </span>
+                  Master BOL
+                </span>
 
-              <div style={{ marginTop: "4px" }}>
-                {isOttawa ? (
-                  <>
-                    Voila CFC1 Departure Time :
-                    <br />
-                    Mileage Start :
-                    <br />
-                    Ottawa Spoke Arrival Time :
-                    <br />
-                    Mileage End :
-                    <br />
-                    Total Mileage :
-                  </>
-                ) : (
-                  // Placeholder with identical height
-                  <div style={{ height: "85px" }}></div>
-                )}
-              </div>
-            </td>
-          </tr>
+                <div style={{ marginTop: "4px" }}>
+                  {isOttawa ? (
+                    <>
+                      Voila CFC1 Departure Time :
+                      <br />
+                      Mileage Start :
+                      <br />
+                      Ottawa Spoke Arrival Time :
+                      <br />
+                      Mileage End :
+                      <br />
+                      Total Mileage :
+                    </>
+                  ) : (
+                    // Placeholder with identical height
+                    <div style={{ height: "85px" }}></div>
+                  )}
+                </div>
+              </td>
+            </tr>
         </tr>
     
 
-      {/* ========== COMMODITY TABLE (notice in Commodity Description sub-header row) ========== */}
+        {/* ========== COMMODITY TABLE (notice in Commodity Description sub-header row) ========== */}
       
-        <tr className="bol-table" style={{ fontWeight: "bold" }}>
+        <tr className="bol-table" style={{fontWeight: "bold" }}>{/*second */}
           {/* Group headers */}
           <tr>
             <th colSpan={2}>Handling Unit</th>
@@ -259,11 +257,10 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             <td></td>
           </tr>
         </tr>
-      {/* ========== DECLARED VALUE / SHIPPER SIGNATURE (upper) ========== */}
-        <tr className="bol-table"
+        {/* ========== DECLARED VALUE / SHIPPER SIGNATURE (upper) ========== */}{/*third */}
+        <tr className="bol-table" 
         style={{
           fontSize: "9px",
-          width: "190mm",
           margin: "4px auto 0 auto",
         }}>
           <tr>
@@ -290,7 +287,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             </td>
           </tr>
         </tr>
-      {/* ========== LIABILITY NOTICE ========== */}
+        {/* ========== LIABILITY NOTICE ========== */}{/*fourth */}
         <tr className="bol-table" colSpan={10}
         style={{
           fontSize: "8px",
@@ -300,7 +297,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             <td >
               <strong>
                 NOTE: Liability limitation for loss or damage in this shipment
-                may be applicable. See 49 U.S.C. §14706(c)(1)(A) and (B).
+                may be applicable. See 49 U.S.C. - 14706(c)(1)(A) and (B).
               </strong>
               <div style={{
                 borderTop: '1.5px solid black'
@@ -324,7 +321,7 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
             </td>
           </tr>
         </tr>
-      {/* ========== TRAILER LOADED / FREIGHT COUNTED / CERTIFICATION ========== */}
+        {/* ========== TRAILER LOADED / FREIGHT COUNTED / CERTIFICATION ========== */}{/*fifth */}
         <tr className="bol-table" >
           <tr>
             <td style={{ width: "27%", verticalAlign: "top" }}>
