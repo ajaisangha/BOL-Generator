@@ -20,7 +20,7 @@ export default function PrintLayout({
 
       {activePreview === "BOL" && (
         <div
-          className="bol-print-area"
+          className="bol-print-area print-bol"
           style={{
             width: "210mm",
             minHeight: "297mm",

@@ -182,32 +182,41 @@
   /* -------------------------------------------------------
      BOL — NEW PRINT SETTINGS (WORD-STYLE 0.5 cm MARGINS)
   ------------------------------------------------------- */
+  /* =====================================================
+   BOL — Precise micro-margins for all four edges
+===================================================== */
+@media print {
+
+  /* Disable browser margins completely */
   @page {
     size: A4 portrait;
-    margin: 5mm !important;       /* ⭐ EXACTLY 0.5 cm on all sides */
+    margin: 0 !important;
   }
 
   .print-bol {
-    /* Position safely inside printable region */
-    position: relative !important;
+    position: absolute !important;
 
-    width: calc(100% - 10mm) !important;   /* full width minus margins */
-    margin: 0 !important;
+    /* ⭐ REAL margins now work because selector applies */
+    top: 6mm !important;
+    left: 5mm !important;
+
+    width: calc(210mm - 10mm) !important; /* 5mm left + 5mm right */
+    height: auto !important;
+
+    /* Avoid overflow = no second page */
+    max-height: calc(297mm - 12mm) !important;
+    overflow: hidden !important;
+    page-break-inside: avoid !important;
+
     padding: 0 !important;
+    background: #fff !important;
+
+    transform: scale(1) !important;
+    transform-origin: top left !important;
 
     border: none !important;
     box-sizing: border-box !important;
-
-    /* No scaling unless content is too tall */
-    transform-origin: top left !important;
-    transform: scale(1) !important;
-
-    overflow: hidden !important;
-    page-break-inside: avoid !important;
   }
+}
 
-  /* Slightly reduce spacing */
-  .bol-table {
-    margin-bottom: 2px !important;
-  }
 }
