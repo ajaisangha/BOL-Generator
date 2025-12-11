@@ -93,12 +93,10 @@
   gap: 4px;
 }
 
-
 /* ---------------------------------------------------------
-   PRINT PREVIEW PANELS
+   PRINT PREVIEW PANELS (screen only)
 --------------------------------------------------------- */
 
-/* BOL — screen preview (unchanged) */
 .bol-print-area {
   width: 210mm;
   min-height: 297mm;
@@ -107,10 +105,9 @@
   background: white;
   box-sizing: border-box;
   font-family: "Arial Narrow", Arial, sans-serif;
-  border: none !important;
 }
 
-/* TEMP CHECK — DO NOT CHANGE */
+/* TEMP CHECK (unchanged) */
 .temp-print-area {
   width: 210mm;
   min-height: 297mm;
@@ -141,15 +138,12 @@
   text-align: center;
 }
 
-
 /* ==========================================================
    PRINT MODE
 ========================================================== */
 @media print {
 
-  /* -------------------------------------------------------
-     TEMP CHECK — KEEP EXACT PRINT BEHAVIOR (NO CHANGES)
-  ------------------------------------------------------- */
+  /* TEMP CHECK – leave unchanged */
   .print-temp {
     position: absolute !important;
     top: 5mm !important;
@@ -180,27 +174,61 @@
   }
 
   /* -------------------------------------------------------
-     BOL — NEW PRINT SETTINGS (WORD-STYLE 0.5 cm MARGINS)
+     PAGE SETTINGS — NO BROWSER MARGINS
   ------------------------------------------------------- */
-  /* =====================================================
-   BOL — Precise micro-margins for all four edges
-===================================================== */
-@media print {
-
-  /* Disable browser margins completely */
   @page {
     size: A4 portrait;
     margin: 0 !important;
   }
 
+  /* -------------------------------------------------------
+     BOL PRINT AREA — FULL WIDTH, MICRO MARGINS
+  ------------------------------------------------------- */
   .print-bol {
-  position: absolute !important;
-  top: 6mm !important;
-  left: 3mm !important;
-  width: calc(210mm - 6mm) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-}
+    position: absolute !important;
 
+    /* TOP margin slightly larger, left/right minimal */
+    top: 5mm !important;
+    left: 2mm !important;
+
+    /* Full-page width minus micro-margins */
+    width: calc(210mm - 4mm) !important;
+
+    /* FIX second blank page */
+    height: auto !important;
+    max-height: calc(297mm - 6mm) !important;
+    overflow: hidden !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+
+    /* Do NOT scale */
+    transform: none !important;
+    transform-origin: top left !important;
+
+    border: none !important;
+    box-sizing: border-box !important;
+  }
+
+  /* FORCE borders to print clean + bold */
+  table,
+  table * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  table {
+    border-color: #000 !important;
+  }
+
+  td, th {
+    border-color: #000 !important;
+  }
+
+  .print-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
