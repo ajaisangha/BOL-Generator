@@ -194,29 +194,13 @@
   }
 
   .print-bol {
-    position: absolute !important;
-
-    /* ⭐ REAL margins now work because selector applies */
-    top: 6mm !important;
-    left: 5mm !important;
-
-    width: calc(210mm - 10mm) !important; /* 5mm left + 5mm right */
-    height: auto !important;
-
-    /* Avoid overflow = no second page */
-    max-height: calc(297mm - 12mm) !important;
-    overflow: hidden !important;
-    page-break-inside: avoid !important;
-
-    padding: 0 !important;
-    background: #fff !important;
-
-    transform: scale(1) !important;
-    transform-origin: top left !important;
-
-    border: none !important;
-    box-sizing: border-box !important;
-  }
+  position: absolute !important;
+  top: 6mm !important;
+  left: 3mm !important;
+  width: calc(210mm - 6mm) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
 }
 
 }

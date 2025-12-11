@@ -25,7 +25,7 @@ export default function PrintLayout({
             width: "210mm",
             minHeight: "297mm",
             margin: "0 auto",
-            padding: "8mm",
+            padding: 0,
             boxSizing: "border-box",
           }}
         >
