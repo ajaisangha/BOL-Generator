@@ -1,7 +1,12 @@
 import React from "react";
 
-export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNumber }) {
-
+export default function BOLLayout({
+  mode,
+  trailerNumber,
+  sealNumber,
+  qty,
+  bolNumber,
+}) {
   const today = new Date();
   const mm = String(today.getMonth() + 1).padStart(2, "0");
   const dd = String(today.getDate()).padStart(2, "0");
@@ -38,36 +43,21 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
     "Carrier acknowledges receipt of packages and required placards. Carrier certifies emergency response information was made available and/or carrier has the DOT emergency response guidebook or equivalent documentation in the vehicle. Property described above is received in good order, except as noted.";
 
   return (
-    <div
-      className="bol-page page"
-      style={{
-        width: "100%",
-        padding: 0,
-        margin: 0,
-        boxSizing: "border-box",
-        fontFamily: '"Arial Narrow", Arial, sans-serif',
-      }}
-    >
+    <div className="bol-page page">
       {/* MAIN OUTER TABLE */}
-      <table
-        style={{
-          width: "100%",
-          border: "2px solid #000",
-          borderCollapse: "collapse",
-        }}
-      >
+      <table className="bol-outer-table">
         <tbody>
-
           {/* ========================= BLOCK 1 ========================= */}
           <tr>
             <td>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="bol-inner-table">
                 <tbody>
-
                   {/* Row 1 */}
                   <tr>
                     <td colSpan={8}>
-                      <div style={{ fontWeight: "bold" }}>Straight Bill of Lading</div>
+                      <div style={{ fontWeight: "bold" }}>
+                        Straight Bill of Lading
+                      </div>
                       <div>Original - Not Negotiable</div>
                     </td>
                     <td colSpan={3}>Date: &emsp;&emsp; {dateStr}</td>
@@ -78,12 +68,18 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                     <td style={{ width: "70mm", verticalAlign: "top" }}>
                       <strong>Ship From:</strong>
                       <br />
-                      Vaughan CFC<br />
-                      100 Gibraltar Road<br />
+                      Vaughan CFC
+                      <br />
+                      100 Gibraltar Road
+                      <br />
                       Vaughan, ON L4H 3N5
                       <br />
                       SID# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                      <input type="checkbox" style={{ transform: "scale(0.8)" }} /> FOB
+                      <input
+                        type="checkbox"
+                        style={{ transform: "scale(0.8)" }}
+                      />{" "}
+                      FOB
                     </td>
 
                     <td colSpan={10} style={{ verticalAlign: "top" }}>
@@ -99,7 +95,11 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                         <div key={i}>{line}</div>
                       ))}
                       CID# &emsp;&emsp;&emsp;&emsp;&emsp;
-                      <input type="checkbox" style={{ transform: "scale(0.8)" }} /> FOB
+                      <input
+                        type="checkbox"
+                        style={{ transform: "scale(0.8)" }}
+                      />{" "}
+                      FOB
                     </td>
 
                     <td colSpan={10} style={{ verticalAlign: "top" }}>
@@ -108,7 +108,12 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                       <strong>Trailer No:</strong> &emsp; {trailerNumber}
                       <br />
                       <strong>Seal Number:</strong> &emsp; {sealNumber}
-                      <div style={{ borderBottom: "1px solid #000", marginTop: "4px" }}></div>
+                      <div
+                        style={{
+                          borderBottom: "1px solid #000",
+                          marginTop: "4px",
+                        }}
+                      ></div>
                       <strong>SCAC:</strong> &emsp; CACG
                       <br />
                       <strong>Pro No:</strong>
@@ -119,12 +124,19 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                   {/* Row 4 */}
                   <tr>
                     <td colSpan={4} style={{ verticalAlign: "top" }}>
-                      <strong>Freight Charge Terms (prepaid unless marked otherwise):</strong>
+                      <strong>
+                        Freight Charge Terms (prepaid unless marked otherwise):
+                      </strong>
                       <br />
                       <input type="checkbox" defaultChecked /> Prepaid &nbsp;
                       <input type="checkbox" /> Collect &nbsp;
                       <input type="checkbox" /> 3rd Party
-                      <div style={{ borderTop: "1px solid #000", marginTop: "6px" }}></div>
+                      <div
+                        style={{
+                          borderTop: "1px solid #000",
+                          marginTop: "6px",
+                        }}
+                      ></div>
                       3rd Party Freight Charges - Bill To:
                     </td>
 
@@ -151,7 +163,6 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                       )}
                     </td>
                   </tr>
-
                 </tbody>
               </table>
             </td>
@@ -160,21 +171,25 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
           {/* ========================= BLOCK 2 ========================= */}
           <tr>
             <td>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="bol-inner-table">
                 <tbody>
-
                   {/* Header */}
                   <tr style={{ fontWeight: "bold" }}>
                     <th colSpan={2}>Handling Unit</th>
                     <th colSpan={2}>Package</th>
-                    <th rowSpan={2} style={{ width: "18mm" }}>Wt. U.<br />(lbs)</th>
-                    <th rowSpan={2} style={{ width: "10mm" }}>H.M.</th>
+                    <th rowSpan={2} style={{ width: "18mm" }}>
+                      Wt. U.<br />
+                      (lbs)
+                    </th>
+                    <th rowSpan={2} style={{ width: "10mm" }}>
+                      H.M.
+                    </th>
                     <th rowSpan={2} style={{ width: "80mm" }}>
                       Commodity Description
                       <div
                         style={{
                           fontWeight: "normal",
-                          fontSize: "10px",
+                          fontSize: "10pt", // commodityNotice only
                           borderTop: "1.5px solid black",
                         }}
                       >
@@ -196,7 +211,12 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
 
                   {/* Main row */}
                   <tr>
-                    <td className="center" style={{ backgroundColor: "#ffff99" }}>{frames}</td>
+                    <td
+                      className="center"
+                      style={{ backgroundColor: "#ffff99" }}
+                    >
+                      {frames}
+                    </td>
                     <td className="center">Frames</td>
                     <td className="center">{frames ? packages : ""}</td>
                     <td className="center">Totes</td>
@@ -209,13 +229,25 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
 
                   {/* Spacer */}
                   <tr>
-                    <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
 
                   {/* Totals */}
                   <tr>
-                    <td className="center" style={{ backgroundColor: "#ffff99" }}>{frames}</td>
+                    <td
+                      className="center"
+                      style={{ backgroundColor: "#ffff99" }}
+                    >
+                      {frames}
+                    </td>
                     <td className="center">Frames</td>
                     <td className="center">{frames ? packages : ""}</td>
                     <td className="center">Totes</td>
@@ -225,7 +257,6 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
                     <td></td>
                     <td></td>
                   </tr>
-
                 </tbody>
               </table>
             </td>
@@ -234,21 +265,23 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
           {/* ========================= BLOCK 3 ========================= */}
           <tr>
             <td>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="bol-inner-table">
                 <tbody>
                   <tr>
-                    <td colSpan={5} style={{ fontSize: "9px" }}>
+                    <td colSpan={5} style={{ fontSize: "12pt" }}>
                       {wheretherate}
                       <br />
                       {theagreed}
-                      <br /><br />
+                      <br />
+                      <br />
                       _____________________________ FOB _________________________
                     </td>
-                    <td colSpan={5} style={{ fontSize: "9px" }}>
+                    <td colSpan={5} style={{ fontSize: "12pt" }}>
                       {thecareershallnot}
                       <div style={{ height: "30px" }}></div>
                       <br />
-                      ________________________________________<br />
+                      ________________________________________
+                      <br />
                       Shipper Signature
                     </td>
                   </tr>
@@ -260,10 +293,10 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
           {/* ========================= BLOCK 4 ========================= */}
           <tr>
             <td>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="bol-inner-table">
                 <tbody>
                   <tr>
-                    <td style={{ fontSize: "8px" }}>
+                    <td style={{ fontSize: "12pt" }}>
                       <strong>{note}</strong>
                       <div style={{ borderTop: "1.5px solid black" }}>
                         {recieved}
@@ -278,36 +311,63 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
           {/* ========================= BLOCK 5 ========================= */}
           <tr>
             <td>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="bol-inner-table">
                 <tbody>
                   <tr>
-                    <td style={{ width: "27%", verticalAlign: "top" }}>
+                    <td
+                      style={{
+                        width: "27%",
+                        verticalAlign: "top",
+                        fontSize: "12pt",
+                      }}
+                    >
                       {thisistocertify}
                       <div style={{ height: "30px" }}></div>
-                      _____________________<br />
+                      _____________________
+                      <br />
                       Shipper Signature
                       <br />
                       Date: {dateStr}
                     </td>
 
-                    <td style={{ width: "35%", verticalAlign: "top" }}>
-                      <strong>Trailer Loaded</strong><br />
-                      <input type="checkbox" defaultChecked /> By Shipper<br />
+                    <td
+                      style={{
+                        width: "35%",
+                        verticalAlign: "top",
+                        fontSize: "12pt",
+                      }}
+                    >
+                      <strong>Trailer Loaded</strong>
+                      <br />
+                      <input type="checkbox" defaultChecked /> By Shipper
+                      <br />
                       <input type="checkbox" /> By Driver
-                      <br /><br />
-                      <strong>Freight Counted</strong><br />
-                      <input type="checkbox" defaultChecked /> By Shipper<br />
-                      <input type="checkbox" /> By Driver / pallet said to contain<br />
+                      <br />
+                      <br />
+                      <strong>Freight Counted</strong>
+                      <br />
+                      <input type="checkbox" defaultChecked /> By Shipper
+                      <br />
+                      <input type="checkbox" /> By Driver / pallet said to contain
+                      <br />
                       <input type="checkbox" /> By Driver / pieces
                     </td>
 
-                    <td style={{ width: "38%", verticalAlign: "top" }}>
+                    <td
+                      style={{
+                        width: "38%",
+                        verticalAlign: "top",
+                        fontSize: "12pt",
+                      }}
+                    >
                       {careeracknowledge}
                       <div style={{ height: "30px" }}></div>
-                      _____________________<br />
+                      _____________________
+                      <br />
                       Carrier Signature
                       <br />
-                      _____________________<br />
+                      _____________________
+                      <br />
                       Pick up Date
                     </td>
                   </tr>
@@ -315,7 +375,6 @@ export default function BOLLayout({ mode, trailerNumber, sealNumber, qty, bolNum
               </table>
             </td>
           </tr>
-
         </tbody>
       </table>
     </div>
