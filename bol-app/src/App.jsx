@@ -90,7 +90,6 @@ function App() {
 
   const activePreview = docType === "BOL" ? "BOL" : "TEMP";
 
-  
   return (
     <div className="app-container">
       <div className="app-header">
@@ -101,7 +100,6 @@ function App() {
         {/* LEFT PANEL */}
         <div className="left-panel">
           <div className="form-root">
-
             {/* Choose Document Type */}
             <div className="form-field">
               <span style={{ fontWeight: "bold", marginBottom: 4 }}>

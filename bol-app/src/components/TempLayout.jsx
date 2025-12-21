@@ -20,16 +20,6 @@ export default function TempLayout({
   const failedEntries = Object.entries(checks).filter(([, v]) => v === "no");
   const anyFailed = failedEntries.length > 0;
 
-  const failureLines = anyFailed
-    ? failedEntries
-        .map(([key]) => {
-          const num = key.replace("q", "");
-          const text = issueTexts[key] || "";
-          return `Failed ${num} – ${text}`;
-        })
-        .join("\n")
-    : "";
-
   const formattedTemp = temperature ? `${temperature}°C` : "";
 
   return (
@@ -61,13 +51,49 @@ export default function TempLayout({
 
       <table className="bol-table">
         <tbody>
-          <tr><td>1</td><td>Incoming Trailer in Good Condition</td><td>{mark(checks.q1)}</td></tr>
-          <tr><td>2</td><td>Cleanliness (No Contamination Risk from Dirt, Debris, Garbage, Damaged Pallets, etc.)</td><td>{mark(checks.q2)}</td></tr>
-          <tr><td>3</td><td>Structural Concerns (No visible trailer damage or holes that can compromise product)</td><td>{mark(checks.q3)}</td></tr>
-          <tr><td>4</td><td>No Indication and Free of Pest Infestation</td><td>{mark(checks.q4)}</td></tr>
-          <tr><td>5</td><td>Within Temperature Range and No Signs of Temperature Abuse</td><td>{mark(checks.q5)}</td></tr>
-          <tr><td>6</td><td>No Signs of Physical Damage to Product or Packaging</td><td>{mark(checks.q6)}</td></tr>
-          <tr><td>7</td><td>No Signs and Free of Chemical Contamination and Other Contaminates</td><td>{mark(checks.q7)}</td></tr>
+          <tr>
+            <td>1</td>
+            <td>Incoming Trailer in Good Condition</td>
+            <td>{mark(checks.q1)}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              Cleanliness (No Contamination Risk from Dirt, Debris, Garbage,
+              Damaged Pallets, etc.)
+            </td>
+            <td>{mark(checks.q2)}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>
+              Structural Concerns (No visible trailer damage or holes that can
+              compromise product)
+            </td>
+            <td>{mark(checks.q3)}</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>No Indication and Free of Pest Infestation</td>
+            <td>{mark(checks.q4)}</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Within Temperature Range and No Signs of Temperature Abuse</td>
+            <td>{mark(checks.q5)}</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>No Signs of Physical Damage to Product or Packaging</td>
+            <td>{mark(checks.q6)}</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>
+              No Signs and Free of Chemical Contamination and Other Contaminates
+            </td>
+            <td>{mark(checks.q7)}</td>
+          </tr>
         </tbody>
       </table>
 
@@ -82,6 +108,7 @@ export default function TempLayout({
           </tr>
         </thead>
         <tbody>
+          {/* Primary temp row */}
           <tr>
             <td className="center">{trailerNumber}</td>
             <td className="center">{formattedTemp}</td>
@@ -90,28 +117,37 @@ export default function TempLayout({
             <td className="center">{initials}</td>
           </tr>
 
-          {anyFailed && (
-            <tr>
-              <td className="center" style={{ fontWeight: "bold" }}>
-                {trailerNumber}
-              </td>
-              <td className="center">—</td>
-              <td className="center">N</td>
-              <td
-                className="center"
-                style={{ whiteSpace: "pre-line", fontSize: "11px" }}
-              >
-                {failureLines}
-              </td>
-              <td className="center">{initials}</td>
-            </tr>
-          
-          )}
+          {/* One extra row per failed question */}
+          {failedEntries.map(([key]) => {
+            const num = key.replace("q", "");
+            const text = issueTexts[key] || "";
+            return (
+              <tr key={key}>
+                <td className="center">{trailerNumber}</td>
+                <td className="center">—</td>
+                <td className="center">N</td>
+                <td className="center" style={{ fontSize: "11px" }}>
+                  {`Failed ${num} – ${text}`}
+                </td>
+                <td className="center">{initials}</td>
+              </tr>
+            );
+          })}
+
+          {/* Spacer rows */}
           <tr>
-            <td>&nbsp;</td><td></td><td></td><td></td><td></td>
+            <td>&nbsp;</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
-            <td>&nbsp;</td><td></td><td></td><td></td><td></td>
+            <td>&nbsp;</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
